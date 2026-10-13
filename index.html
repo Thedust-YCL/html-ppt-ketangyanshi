@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b12">
+  <title>零基础 AI 入门 · 交付你的第一份成果</title>
+  <style>
+@font-face{font-family:DeckMono;src:local('Cascadia Code'),local('Consolas');font-display:swap}
+:root{color-scheme:dark;--bg:#080b12;--paper:#111720;--ink:#f2f5fa;--muted:#a2afc2;--cyan:#73e6fa;--violet:#ad96ff;--mint:#88edc0;--amber:#ffc07c;--accent:var(--cyan);--line:rgba(205,225,250,.16);font-family:'Microsoft YaHei','PingFang SC','Noto Sans CJK SC',system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);height:100dvh;overflow:hidden}button,a,input{touch-action:manipulation}button,input{font:inherit}button{color:inherit;cursor:pointer}button{border:0}a{color:var(--accent);text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:5px}button:disabled{opacity:.25;cursor:default}button:hover:not(:disabled){color:#fff}button, a{ -webkit-tap-highlight-color:transparent}button:active:not(:disabled){transform:translateY(1px)}[hidden]{display:none!important}
+.appbar{height:68px;margin:0 36px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(205,225,250,.09);position:relative;z-index:5}.brand{display:flex;align-items:center;gap:13px;font-size:13px;letter-spacing:2px;color:#a6b2c5}.brand strong{color:#eef5ff;font-size:18px;letter-spacing:0}.brand-symbol{font-size:32px;color:var(--cyan);line-height:1}.brand-divider{height:14px;width:1px;background:var(--line);margin:0 3px}.chapter-label{background:transparent;font-size:12px;display:flex;align-items:center;gap:13px;color:#a1aec0}.chapter-label #chapter-no{font-family:DeckMono,monospace;color:var(--cyan)}.slash{opacity:.3}.chevron{margin-left:8px;color:#718097}.top-actions{display:flex;gap:8px}.icon-button{background:transparent;width:34px;height:34px;font-size:20px;color:#a7b4c6;border-radius:7px}.icon-button:hover{background:#ffffff0a}.icon-button[aria-pressed=true]{color:var(--cyan);background:#73e6fa10}
+.viewport{height:calc(100dvh - 148px);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:18px 28px}.stage-shell{position:relative;flex-shrink:0}.stage{width:1600px;height:900px;position:relative;overflow:hidden;background:#0b1019;border:1px solid #91b3e620;transform-origin:top left;box-shadow:0 26px 100px #0006}.stage-grid{position:absolute;inset:0;background-image:linear-gradient(#aac7fa04 1px,transparent 1px),linear-gradient(90deg,#aac7fa04 1px,transparent 1px);background-size:70px 70px;mask-image:linear-gradient(100deg,transparent,#000 80%);pointer-events:none}.aura{position:absolute;inset:0;background:radial-gradient(ellipse at 85% 24%,#7272ff0e,transparent 55%),radial-gradient(ellipse at 20% 85%,#00a6b707,transparent 50%);pointer-events:none}.aura:after{content:'';position:absolute;inset:0;background:linear-gradient(125deg,transparent 40%,#b9eeff06 50%,transparent 60%)}#particles{position:absolute;inset:0;pointer-events:none;opacity:.65}.slide-host{position:absolute;inset:0}.slide{position:absolute;inset:0;padding:80px 92px 110px;animation:slideIn .66s cubic-bezier(.16,1,.3,1) both}.slide-heading{position:relative;z-index:1}.eyebrow{display:flex;align-items:center;gap:16px;color:var(--accent);font-size:17px;letter-spacing:4px;font-weight:500;margin:0 0 26px}.eyebrow:before{content:'';display:block;width:32px;height:2px;background:var(--accent);box-shadow:0 0 14px var(--accent)}h1{font-size:56px;line-height:1.23;letter-spacing:-2px;font-weight:650;margin:0;color:#f3f7ff}.slide-subtitle{font-size:26px;line-height:1.6;color:var(--muted);margin:20px 0 0}.accent{color:var(--accent)}.slide-content{position:relative;z-index:1;margin-top:56px;max-height:556px}.takeaway{position:absolute;bottom:107px;left:92px;right:92px;font-size:25px;color:#ced8e6;display:flex;gap:20px;align-items:center}.takeaway:before{content:'';width:24px;height:2px;background:var(--accent);flex-shrink:0}.caption{font-size:19px;color:#a5b2c6;margin-top:28px;line-height:1.6}.stage-footer{position:absolute;bottom:36px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-family:DeckMono,monospace;letter-spacing:3px;color:#728199;pointer-events:none}.stage-footer:before{content:'';position:absolute;left:0;right:0;top:-24px;height:1px;background:linear-gradient(90deg,#abc5ea28,#abc5ea05)}.stage-corner{position:absolute;width:14px;height:14px;pointer-events:none;opacity:.35}.top-left{top:26px;left:26px;border-left:1px solid var(--accent);border-top:1px solid var(--accent)}.bottom-right{bottom:26px;right:26px;border-right:1px solid var(--accent);border-bottom:1px solid var(--accent)}.transition-veil{position:absolute;inset:0;pointer-events:none;opacity:0;background:linear-gradient(105deg,transparent 20%,#a9ddff30 45%,#c5d5ff80 50%,transparent 65%);z-index:4;transform:translateX(-100%)}.transition-veil.sweep{animation:lightSweep .75s cubic-bezier(.2,.6,.2,1)}
+.reveal{opacity:0;transform:translateY(20px);filter:blur(5px);pointer-events:none;transition:opacity .45s,transform .55s cubic-bezier(.16,1,.3,1),filter .4s}.reveal.shown{opacity:1;transform:none;filter:none;pointer-events:auto}.slide[data-layout=cover]{padding-top:96px}.cover .eyebrow{margin-bottom:54px}.cover h1{font-size:118px;letter-spacing:-6px;line-height:1.22;max-width:1100px;font-weight:700}.cover h1 .accent{background:linear-gradient(100deg,#cbfaff,#73e6fa 35%,#a8a8ff 95%);color:transparent;background-clip:text;-webkit-background-clip:text}.cover .slide-subtitle{font-size:29px;margin-top:39px;color:#aabbd2}.cover-meta{display:flex;align-items:center;gap:14px;color:#788ca7;letter-spacing:2px;font-size:17px;margin-top:60px}.cover-meta:before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}.orb-label{position:absolute;right:120px;bottom:150px;font-family:DeckMono,monospace;font-size:13px;color:#7088a2;letter-spacing:5px}.cover .cover-line{position:absolute;right:98px;top:118px;display:flex;gap:30px;color:#7990aa;font:14px DeckMono,monospace;writing-mode:vertical-rl;letter-spacing:7px}
+.chapter h1{font-size:108px;letter-spacing:-5px;max-width:1150px}.chapter .slide-heading{top:212px}.chapter .eyebrow{font-family:DeckMono,monospace;letter-spacing:6px}.chapter .slide-subtitle{font-size:32px;color:#b4c2d5;margin-top:30px}.chapter-number{position:absolute;right:50px;top:70px;font:600 580px/1 DeckMono,monospace;letter-spacing:-55px;color:transparent;-webkit-text-stroke:1px #aecdf721;opacity:.7;transform:skewY(-5deg)}.chapter-track{position:absolute;left:92px;bottom:140px;display:flex;gap:10px}.chapter-track span{width:36px;height:3px;background:#4a5b73}.chapter-track span.current{width:72px;background:var(--accent);box-shadow:0 0 20px #73e6fa66}
+.statement .slide-content{margin-top:66px}.statement-text{font-size:85px;line-height:1.4;letter-spacing:-4px;max-width:1370px;font-weight:550}.statement-body{font-size:29px;line-height:1.8;color:#abbad1;max-width:1210px;margin-top:36px}.list-lines{display:flex;flex-direction:column;gap:0}.list-row{display:grid;grid-template-columns:100px 330px 1fr;align-items:center;padding:29px 0;border-top:1px solid var(--line);min-height:120px}.list-row:last-child{border-bottom:1px solid var(--line)}.item-no{font:26px DeckMono,monospace;color:var(--accent);opacity:.8}.list-label{font-size:33px;font-weight:600}.list-body{font-size:27px;line-height:1.6;color:#aebdd1}.list-lines.five .list-row{grid-template-columns:80px 200px 1fr;min-height:84px;padding:20px 0}.list-lines.five .list-label{font-size:28px}.list-lines.five .list-body{font-size:25px}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:88px}.compare-side{position:relative;padding:4px 0 0 38px;border-left:2px solid #7687a43d}.compare-side.good{border-color:var(--accent)}.compare-side h2{font-size:32px;margin:0 0 32px;color:#bac7d9;font-weight:550}.compare-side.good h2{color:var(--accent)}.compare-side p{font-size:31px;line-height:1.6;margin:24px 0;color:#ced8e6}.compare-side p:before{content:'—';color:#6c7d96;margin-right:18px}.compare-side.good p:before{color:var(--accent)}.flow-grid{display:flex;align-items:flex-start;gap:48px;padding-top:50px}.flow-node{flex:1;position:relative;min-width:0}.flow-node:not(:last-child):after{content:'→';position:absolute;right:-38px;top:50px;color:var(--accent);font-size:31px}.node-number{width:102px;height:102px;display:flex;align-items:center;justify-content:center;border:1px solid #92c8dd4d;border-radius:50%;font:35px DeckMono,monospace;color:var(--accent);background:radial-gradient(circle at 35% 30%,#73e6fa14,transparent);box-shadow:0 0 42px #73e6fa08,inset 0 0 22px #73e6fa05;margin-bottom:35px}.flow-node h2{font-size:32px;font-weight:550;margin:0 0 18px}.flow-node p{font-size:25px;line-height:1.7;color:#a6b7cd;margin:0;max-width:280px}
+.diagram-wrap{position:relative;height:430px;display:flex;align-items:center;justify-content:center}.diagram-svg{width:100%;height:100%;overflow:visible}.diagram-svg text{font-family:'Microsoft YaHei',sans-serif;fill:#e7f0fb;font-size:28px}.diagram-svg .small{font-size:20px;fill:#adbed2}.diagram-svg .glow{fill:var(--accent);font-size:35px;font-weight:600}.diagram-svg .wire{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:.5;stroke-dasharray:8 6;animation:dashFlow 12s linear infinite}.diagram-svg .box{fill:#142333;stroke:#99d9f547;stroke-width:1.5}.diagram-svg .softbox{fill:#101c2b;stroke:#94aece38;stroke-width:1}.diagram-svg .pulse-ring{fill:none;stroke:var(--accent);stroke-width:1;opacity:.25}.layers{display:flex;align-items:center;justify-content:center;gap:0;height:400px}.layer{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;border:1px solid #73e6fa70;background:radial-gradient(ellipse at top,#74e9ff10,transparent 80%);box-shadow:0 0 45px #73e6fa08}.layer-ai{width:760px;height:390px;align-items:flex-start;padding-left:95px}.layer-ai .layer-name{position:absolute;left:105px;top:125px}.layer-model{position:absolute;right:50px;width:420px;height:310px;background:#101f32}.layer-app{position:absolute;right:30px;width:210px;height:190px;background:#173046;border-color:#a99bff80}.layer-name strong{font-size:42px;color:var(--accent);font-weight:550}.layer-name p{font-size:20px;color:#b6c7dd;line-height:1.7;margin-top:15px}.layer-model>.layer-name{position:absolute;left:40px;top:92px}.layer-model strong{font-size:31px}.layer-app strong{font-size:32px;color:var(--violet)}.layer-app p{font-size:19px;color:#b7cbe0}.layer-caption{font-size:23px;color:#a8bbd3;max-width:490px;line-height:1.8;margin-left:60px}
+.paper{padding:38px 45px 36px;border-left:4px solid var(--accent);background:linear-gradient(110deg,#c5e0ff0b,#c5e0ff03);position:relative}.paper-title{display:flex;gap:18px;align-items:center;color:var(--accent);font-size:20px;letter-spacing:1px;margin-bottom:25px}.paper-title:before{content:'▤';font-size:24px}.paper-text{font-size:31px;line-height:1.9;color:#d2deed;white-space:pre-line}.document .slide-content{margin-top:45px}.document .paper-text .accent{background:#ffc07c11;color:var(--accent);padding:2px 6px;border-bottom:1px solid var(--accent)}.prompt-box{background:#0c1723;border:1px solid #7ebbc937;border-radius:4px;padding:30px 40px;position:relative}.prompt-box:before{content:'TASK / 任务说明';font:17px DeckMono,monospace;letter-spacing:2px;color:var(--accent);display:block;margin-bottom:25px}.prompt-text{font-size:27px;line-height:1.9;white-space:pre-wrap;margin:0;color:#d6e0ed;font-family:inherit}.prompt.compact .prompt-text{font-size:24px;line-height:1.68;max-height:354px;overflow:auto;scrollbar-width:thin;scrollbar-color:#47687d #0c1723;padding-right:18px}.prompt .slide-content{margin-top:39px}.copy-button,.action-button{background:#73e6fa14;border:1px solid #73e6fa50;color:var(--accent);font-size:21px;border-radius:4px;padding:14px 24px;display:inline-flex;gap:12px;align-items:center;transition:background .2s}.copy-button{position:absolute;right:30px;top:20px;font-size:17px;padding:9px 18px}.copy-button:hover,.action-button:hover{background:#73e6fa25}.action-button.primary{background:var(--accent);color:#07131e;font-weight:600}.action-button.primary:hover{color:#06141e;background:#c6f6ff}.inline-actions{display:flex;gap:18px;margin-top:26px}
+.quiz-question{font-size:34px;line-height:1.6;max-width:1320px;margin:0 0 30px}.quiz-options{display:flex;flex-direction:column;gap:16px}.quiz-option{display:flex;align-items:center;text-align:left;gap:25px;background:#a1bbeb05;border:1px solid #a1bbeb24;border-radius:4px;padding:21px 27px;font-size:27px;min-height:80px;transition:background .25s,border .25s}.option-letter{font:22px DeckMono,monospace;color:#8da4c1;border-right:1px solid var(--line);padding-right:25px}.quiz-option:hover{border-color:#73e6fa70;background:#73e6fa09}.quiz-option.correct{border-color:#88edc0;background:#88edc015}.quiz-option.wrong{border-color:#ffc07c;background:#ffc07c10}.quiz-option.correct .option-letter{color:var(--mint)}.quiz-option.wrong .option-letter{color:var(--amber)}.quiz-feedback{font-size:23px;line-height:1.65;margin-top:24px;color:#c8d7e8;min-height:55px}.quiz-feedback:empty:before{content:'先选一个答案，再看解释';color:#6f829d;font-size:20px}
+.token-sentence{font-size:62px;letter-spacing:2px;line-height:1.4;margin:16px 0 32px}.token-stream{display:flex;gap:12px;flex-wrap:wrap;min-height:105px;align-items:center}.token{padding:20px 25px;background:#73e6fa0d;border-bottom:3px solid #73e6fa86;font-size:34px;animation:tokenEnter .5s both}.token:nth-child(2n){background:#ad96ff0e;border-color:#ad96ff80}.token:nth-child(3n){background:#88edc00c;border-color:#88edc080}.token-note{font-size:23px;color:#a2b4cb;margin:34px 0 0;line-height:1.8}.token-caption{font:18px DeckMono,monospace;color:var(--accent);letter-spacing:2px;margin-bottom:20px}.meter-headline{font-size:56px;line-height:1.4;letter-spacing:-1px}.capacity-bar{height:100px;display:flex;margin:45px 0 30px;border:1px solid #c8e0ff29;padding:7px;gap:5px}.capacity-part{display:flex;align-items:center;justify-content:center;font-size:23px;background:#73e6fa20;color:#cdefff}.capacity-part:nth-child(2){background:#ad96ff2b;color:#e0d8ff}.capacity-part:nth-child(3){background:#88edc022;color:#bbedce}.capacity-part:nth-child(4){border:1px dashed #c7dbfc50;background:transparent;color:#acbbce}.capacity-note{font-size:22px;color:#879eb9}
+.data-table{width:100%;border-collapse:collapse;font-size:29px}.data-table th{font-size:23px;color:var(--accent);font-weight:450;text-align:left;padding:18px 24px;border-bottom:1px solid #73e6fa50;background:#73e6fa05}.data-table td{padding:28px 24px;border-bottom:1px solid #a4c1e020;line-height:1.4;color:#d2ddec}.data-table tr:last-child td{border-bottom:1px solid #a4c1e030}.table .slide-content{margin-top:43px}.apps-list{display:grid;grid-template-columns:1fr 1fr;gap:0 80px}.app-item{display:flex;gap:30px;border-top:1px solid var(--line);padding:28px 0 32px;align-items:center}.app-glyph{font:38px DeckMono,monospace;width:85px;height:85px;display:flex;align-items:center;justify-content:center;border:1px solid #accbec35;border-radius:50%;color:var(--accent);background:#93cfff07}.app-item h2{font-size:35px;margin:0 0 14px;font-weight:550}.app-item p{font-size:24px;color:#a5b6cd;margin:0}.app-item a{font-size:18px;display:inline-block;margin-top:18px;border-bottom:1px solid #73e6fa30;padding-bottom:5px}
+.formula-items{display:flex;gap:26px;margin-top:70px}.formula-item{flex:1;border-top:2px solid var(--accent);padding-top:24px;position:relative}.formula-item:before{content:attr(data-no);font:19px DeckMono,monospace;color:var(--accent);letter-spacing:2px}.formula-item h2{font-size:38px;line-height:1.5;margin:28px 0 22px;font-weight:550}.formula-item p{font-size:23px;line-height:1.8;color:#a7b9d0;margin:0}.stat-grid{display:flex;gap:80px;justify-content:space-between;margin-top:50px}.stat-item{flex:1}.stat-number{font:600 110px/1.25 DeckMono,monospace;color:var(--accent);letter-spacing:-7px}.stat-label{font-size:29px;margin-top:15px;color:#a9bbd2}.stat-formula{font:26px DeckMono,monospace;color:#d4deed;border-top:1px solid var(--line);padding-top:35px;margin-top:50px}.glossary-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:72px;row-gap:0}.glossary-entry{display:grid;grid-template-columns:190px 1fr;gap:14px;padding:26px 0;border-top:1px solid var(--line);align-items:start}.glossary-entry strong{color:var(--accent);font-size:27px;font-weight:500}.glossary-entry p{font-size:24px;line-height:1.6;margin:0;color:#b6c5d9}.glossary .slide-content{margin-top:36px}
+.compression-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px}.compression-col{border-left:2px solid #839abd40;padding:8px 0 0 28px}.compression-col h2{font-size:25px;color:#a1b5cf;margin:0 0 25px;font-weight:500}.compression-col p{font-size:29px;line-height:1.85;margin:0;white-space:pre-line}.compression-col.summary{border-color:var(--accent)}.compression-col.summary h2{color:var(--accent)}.lost-warning{font-size:23px;color:var(--amber);line-height:1.7;margin-top:24px}.sim-track{display:flex;justify-content:space-between;padding-bottom:25px;border-bottom:1px solid var(--line);margin-bottom:30px;position:relative}.sim-step{color:#6b819e;font-size:21px;display:flex;align-items:center;gap:12px}.sim-step.active{color:var(--accent)}.sim-step span{border:1px solid currentColor;border-radius:50%;width:34px;height:34px;text-align:center;line-height:32px;font:17px/32px DeckMono,monospace}.sim-stage{display:grid;grid-template-columns:280px 1fr;gap:40px;min-height:248px;padding-top:15px}.sim-index{font:600 150px/1 DeckMono,monospace;color:#73e6fa25;letter-spacing:-12px}.sim-title{font-size:35px;margin:0 0 20px;color:#dbe7f7;font-weight:550}.sim-text{font-size:28px;color:#abbdd5;line-height:1.8;white-space:pre-line}.simulation .slide-content{margin-top:40px}.simulation-badge{font-size:19px;color:var(--amber);display:inline-block;margin-bottom:16px;letter-spacing:1px}.balance-grid{display:flex;gap:60px;margin-top:35px}.balance-item{flex:1;text-align:center;border-top:1px solid #9bc1e436;padding-top:50px}.balance-symbol{font-size:64px;color:var(--accent);font-weight:300}.balance-item h2{font-size:38px;margin:25px 0 20px;font-weight:500}.balance-item p{font-size:25px;color:#a4b7d1;line-height:1.8;margin:0}.exercise-headline{font-size:64px;line-height:1.45;letter-spacing:-2px}.exercise-tasks{margin:30px 0;display:flex;gap:40px}.exercise-tasks p{font-size:25px;line-height:1.7;flex:1;border-top:1px solid var(--line);padding-top:22px}.exercise-tasks span{color:var(--accent);font-family:DeckMono;margin-right:14px}.sources-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px 40px}.source-link{border-top:1px solid var(--line);padding:23px 0}.source-link a{display:block;font-size:23px;line-height:1.5}.source-link p{font-size:19px;line-height:1.7;color:#9daec7;margin:13px 0 0}.sources .slide-content{margin-top:42px}.closing h1{font-size:106px;line-height:1.4;letter-spacing:-5px}.closing .slide-subtitle{font-size:28px;max-width:700px}.closing .slide-heading{top:25px}.closing .inline-actions{margin-top:45px}
+.controls{height:80px;display:flex;align-items:center;justify-content:space-between;margin:0 36px;gap:15px}.control-start,.control-end{display:flex;align-items:center;gap:22px;flex:1}.control-end{justify-content:flex-end}.text-button{background:transparent;color:#91a2ba;font-size:12px;letter-spacing:.5px;padding:10px 0;white-space:nowrap}.text-button span{font-size:17px;margin-right:5px}.page-controls{display:flex;align-items:center;gap:22px}.nav-button{height:36px;width:44px;background:#1e2b3c66;border:1px solid #acc7ed20;color:#a7bacf;font-size:22px;border-radius:5px}.nav-button.next{color:var(--cyan);background:#73e6fa0b;border-color:#73e6fa38}.page-number{background:transparent;display:flex;gap:12px;align-items:center;min-width:105px;justify-content:center;font:13px DeckMono,monospace;color:#7e92ad}.page-number strong{font-size:19px;font-weight:450;color:#edf5ff}.page-number>span:nth-child(2){opacity:.3}#step-label{font-size:11px;color:#6a809c;white-space:nowrap}.course-progress{height:2px;position:fixed;bottom:0;left:0;right:0;background:#bfd7ff08}.course-progress>div{height:100%;background:linear-gradient(90deg,#73e6fa,#ad96ff);width:1%;transition:width .6s;box-shadow:0 0 15px #73e6fa70}
+.modal{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:28px}.modal-backdrop{position:absolute;inset:0;background:#02060ddd;backdrop-filter:blur(18px)}.modal-panel{position:relative;background:#101824;border:1px solid #a1c5ef28;border-radius:10px;box-shadow:0 30px 100px #0008;width:min(1040px,100%);max-height:88dvh;display:flex;flex-direction:column;animation:modalIn .25s both}.modal-header{display:flex;align-items:center;justify-content:space-between;padding:28px 32px 22px;border-bottom:1px solid var(--line)}.modal-kicker{font:10px DeckMono,monospace;letter-spacing:3px;color:#7bb8d6}.modal-header h2{margin:8px 0 0;font-size:25px;font-weight:550}.modal-close{font-size:26px}.modal-body{padding:25px 32px 32px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#40556e #101824;line-height:1.8}.directory-search{display:flex;gap:12px;position:sticky;top:-25px;background:#101824;padding:5px 0 20px;z-index:2}.directory-search input,.jump-input{background:#070f1b;border:1px solid #7aa6d534;color:#e8f0ff;min-width:0;border-radius:5px;padding:12px 16px;flex:1;font-size:14px}.directory-search select{background:#070f1b;border:1px solid #7aa6d534;color:#c6d5e8;border-radius:5px;padding:8px 10px;max-width:200px}.directory-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px 35px}.chapter-group h3{font-size:14px;margin:0 0 10px;color:var(--cyan);font-weight:500}.chapter-group h3 span{font-family:DeckMono,monospace;margin-right:10px;color:#708fae}.page-link{display:flex;align-items:center;gap:14px;min-height:36px;padding:8px 12px;width:100%;background:transparent;text-align:left;border-radius:4px;color:#afc0d7;font-size:13px;line-height:1.6}.page-link:hover,.page-link.current{background:#73e6fa0c;color:#d4faff}.page-link .num{font:11px DeckMono,monospace;color:#6884a4;min-width:27px}.page-link.current .num{color:var(--cyan)}.notes-meta{font-size:12px;color:#718ba9;margin-bottom:20px}.notes-body{font-size:18px;color:#c4d3e8;line-height:2;white-space:pre-line}.notes-goal{padding:17px 20px;border-left:2px solid var(--accent);background:#73e6fa08;margin-bottom:20px;font-size:15px;color:#c6eaf6}.notes-next{margin-top:26px;border-top:1px solid var(--line);padding-top:20px;color:#97acc6;font-size:14px}.note-caution{font-size:12px;color:#8c9fb8;margin-top:25px}.notes-sources{font-size:13px;line-height:2;margin-top:24px}.notes-sources a{display:block}.materials-list{display:flex;flex-direction:column;gap:12px}.material-row{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:16px 20px;background:#07101b;border:1px solid #9ec2ec1a;border-radius:4px}.material-row strong{font-size:14px;font-weight:500;color:#bed1e8}.material-row button{background:#73e6fa12;border:1px solid #73e6fa30;padding:7px 16px;border-radius:4px;font-size:12px;color:var(--cyan)}.modal-intro{font-size:14px;color:#9fb3ce;margin:0 0 24px}.help-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 30px}.help-row{display:flex;gap:18px;align-items:center;font-size:14px;color:#b1c4df}.help-row kbd{min-width:100px;font:12px DeckMono,monospace;background:#73e6fa0a;border:1px solid #73e6fa20;padding:8px 12px;border-radius:4px;text-align:center;color:#c6eff6}.jump-form{display:flex;gap:15px;max-width:420px}.jump-form button{background:var(--cyan);color:#07111e;padding:10px 26px;border-radius:5px;font-size:14px}.copy-fallback{display:block;width:100%;height:280px;background:#070f1b;border:1px solid var(--line);color:#d6e4f4;font:14px/1.8 inherit;padding:16px;resize:vertical}.toast{position:fixed;bottom:98px;left:50%;transform:translateX(-50%);background:#162737;border:1px solid #74e6fa50;color:#d4f4ff;z-index:30;padding:12px 22px;font-size:13px;border-radius:6px;box-shadow:0 10px 40px #0006;max-width:90vw}.black-screen{position:fixed;inset:0;background:#000;z-index:50;display:flex;align-items:flex-end;justify-content:center}.black-screen span{color:#3b4657;font-size:12px;margin-bottom:30px;letter-spacing:2px}
+body.reduced-motion *{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reduced-motion .reveal.shown{filter:none}.reduced-motion #particles{opacity:.45}.stage[data-chapter-color=violet]{--accent:var(--violet)}.stage[data-chapter-color=mint]{--accent:var(--mint)}.stage[data-chapter-color=amber]{--accent:var(--amber)}
+@keyframes slideIn{from{opacity:0;transform:translateY(27px) scale(.987);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}@keyframes lightSweep{0%{opacity:0;transform:translateX(-100%)}20%{opacity:.65}100%{opacity:0;transform:translateX(100%)}}@keyframes dashFlow{to{stroke-dashoffset:-280}}@keyframes tokenEnter{from{opacity:0;transform:translateY(20px) rotateX(20deg)}to{opacity:1;transform:none}}@keyframes modalIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){body:not(.motion-override) *{animation:none!important;transition:none!important}}
+@media(max-width:800px){.appbar{height:56px;margin:0 18px}.chapter-label{font-size:10px;gap:7px}.brand{font-size:10px;gap:8px;letter-spacing:1px}.brand-symbol{font-size:24px}.brand strong{font-size:15px}.brand-divider{margin:0}.top-actions{gap:0}.icon-button{width:29px;height:30px;font-size:18px}.viewport{height:calc(100dvh - 126px);padding:10px}.controls{height:70px;margin:0 18px}.text-button{font-size:10px}.control-start{gap:16px}.control-end{gap:0}#step-label{display:none}.page-controls{gap:9px}.nav-button{width:35px;height:32px}.page-number{gap:7px;min-width:80px;font-size:10px}.page-number strong{font-size:15px}.modal{padding:12px}.modal-header{padding:20px}.modal-body{padding:20px}.directory-grid{grid-template-columns:1fr}.directory-search{top:-20px}.help-grid{grid-template-columns:1fr}.material-row{padding:14px}.modal-header h2{font-size:22px}.modal-intro{font-size:13px}}
+@media(max-width:520px){.chapter-label{display:none}.control-start #notes-button{display:none}.controls{gap:10px;margin:0 12px}.control-start,.control-end{flex:0}.control-start #directory-button,.control-end #materials-button{font-size:10px}.text-button span{font-size:15px;margin-right:2px}.page-controls{gap:7px}.viewport{height:calc(100dvh - 124px)}.directory-search{flex-direction:column}.directory-search select{max-width:none}.appbar{margin:0 14px}.help-row kbd{min-width:85px}.material-row{gap:10px}.material-row strong{font-size:12px}.material-row button{font-size:11px;padding:6px 11px}}
+.table.has-download .data-table td{padding:20px 24px}
+.layers .layer-ai{width:620px;height:360px;flex-shrink:0}
+.layers .layer-ai>.layer-name{left:60px;top:119px}
+.layers .layer-model{width:340px;height:290px;right:25px}
+.layers .layer-model>.layer-name{position:static;text-align:center}
+.layers>.layer-app{position:relative;right:auto;width:260px;height:240px;flex-shrink:0}
+.layer-connector{font-size:40px;color:var(--accent);margin:0 25px}
+.layers .layer-caption{margin-left:35px;max-width:350px;font-size:23px}
+
+</style>
+</head>
+<body>
+  <header class="appbar">
+    <a class="brand" href="#/1" aria-label="回到首页"><span class="brand-symbol">✳</span><strong>AI</strong><span class="brand-divider"></span><span>入门教学</span></a>
+    <button class="chapter-label" id="chapter-button" aria-label="打开章节目录"><span id="chapter-no">01</span><span class="slash">/</span><span id="chapter-title">开场与兴趣</span><span class="chevron">⌄</span></button>
+    <div class="top-actions"><button id="motion-button" class="icon-button" title="减少动效 (M)" aria-label="减少动效" aria-pressed="false">✧</button><button id="help-button" class="icon-button" title="帮助 (?)" aria-label="键盘帮助">?</button><button id="fullscreen-button" class="icon-button" title="全屏 (F)" aria-label="全屏">⛶</button></div>
+  </header>
+  <main class="viewport" id="viewport">
+    <div class="stage-shell" id="stage-shell">
+      <div class="stage" id="stage">
+        <div class="stage-grid" aria-hidden="true"></div><div class="aura" aria-hidden="true"></div>
+        <canvas id="particles" width="1600" height="900" aria-hidden="true"></canvas>
+        <div class="slide-host" id="slide-host" aria-live="polite"></div>
+        <div class="stage-corner top-left" aria-hidden="true"></div><div class="stage-corner bottom-right" aria-hidden="true"></div>
+        <div class="stage-footer"><span id="stage-footer-label">AI FOUNDATIONS</span><span id="stage-page">001</span></div>
+        <div class="transition-veil" aria-hidden="true"></div>
+      </div>
+    </div>
+  </main>
+  <footer class="controls">
+    <div class="control-start"><button id="directory-button" class="text-button" title="章节目录 (G)"><span>☷</span> 章节目录</button><button id="notes-button" class="text-button" title="讲师备注 (N)"><span>▤</span> 讲师备注</button></div>
+    <div class="page-controls"><button id="prev-button" class="nav-button" aria-label="上一步或上一页" title="上一步 / 上一页 (←)">←</button><button id="page-button" class="page-number" title="跳转页码"><strong id="page-number">01</strong><span>/</span><span id="total-pages">100</span></button><button id="next-button" class="nav-button next" aria-label="下一步或下一页" title="下一步 / 下一页 (→)">→</button></div>
+    <div class="control-end"><span id="step-label">按 → 开始</span><button id="materials-button" class="text-button" title="练习材料"><span>↓</span> 练习材料</button></div>
+  </footer>
+  <div class="course-progress" aria-hidden="true"><div id="course-progress-fill"></div></div>
+  <div id="modal" class="modal" hidden><div class="modal-backdrop" data-close="true"></div><section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header class="modal-header"><div><span class="modal-kicker" id="modal-kicker">AI FOUNDATIONS</span><h2 id="modal-title"></h2></div><button id="modal-close" class="icon-button" aria-label="关闭">×</button></header><div id="modal-body" class="modal-body"></div></section></div>
+  <div id="black-screen" class="black-screen" hidden><span>按 B 或 Esc 返回演示</span></div>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <noscript>请启用浏览器 JavaScript 来播放这套课程。</noscript>
+  <script>
+(function(root,factory){ const api=factory(); if(typeof module==='object'&&module.exports)module.exports=api;else root.Course=api; })(globalThis,function(){
+  const chapters = [
+    ['开场与兴趣','先体验，再理解','cyan'],['基础名词','把陌生词变成常识','cyan'],['从回答到执行','让结果真正落地','violet'],['国内应用地图','按任务选择入口','cyan'],['第一次实际使用','完成一份活动总结','mint'],['说清楚需求','把想法变成任务','violet'],['上下文与长任务','让重要信息接得住','amber'],['实战练习','把方法用到工作里','mint'],['问题与验收','把结果检查明白','amber'],['选择、用量与权限','用得合适，用得放心','cyan'],['进阶入口','知道下一步学什么','violet'],['复习与随查','带走一套可用方法','mint']
+  ].map((c,i)=>({id:i+1,title:c[0],subtitle:c[1],color:c[2]}));
+  const sources = [
+    {id:'deepseek',name:'DeepSeek 官方网站',url:'https://www.deepseek.com/',scope:'公司名称、模型系列、网页版入口'},
+    {id:'doubao',name:'豆包官方产品与功能介绍',url:'https://www.doubao.com/legal/feature_intro',scope:'聊天、语音输入输出等公开能力'},
+    {id:'kimi',name:'Kimi 官方网页',url:'https://www.kimi.com/',scope:'官方聊天入口；不推定账号可用工具'},
+    {id:'kimi-api',name:'Kimi API 官方快速开始',url:'https://platform.kimi.com/docs/get-api-key',scope:'月之暗面与 Kimi 模型服务；API 介绍'},
+    {id:'qwen',name:'Qwen 官方仓库',url:'https://github.com/QwenLM/Qwen',scope:'阿里云与 Qwen 模型家族关系'},
+    {id:'workbuddy',name:'WorkBuddy 官方简介',url:'https://www.workbuddy.cn/docs/workbuddy/Overview',scope:'腾讯工作台、授权文件处理、结果查看'},
+    {id:'token',name:'DeepSeek 官方 Token 用量说明',url:'https://api-docs.deepseek.com/quick_start/token_usage',scope:'Token 与字符关系、用量概念'},
+    {id:'mcp',name:'MCP 官方概述',url:'https://modelcontextprotocol.io/docs/getting-started/intro',scope:'连接 AI 应用与外部工具和数据的开放标准'},
+    {id:'skills',name:'Agent Skills 官方概述',url:'https://agentskills.io/home',scope:'任务说明、脚本、参考资料与资源包'}
+  ].map(s=>({...s,checked:'2026-10-13'}));
+  const raw = `【虚构练习材料，不含真实个人信息】\n活动：青禾社区旧物交换日\n日期：2026年9月20日\n地点：社区活动室\n记录人：小林\n\n上午布置摊位，下午进行旧物交换。志愿者负责引导和登记。交换物品以书籍、玩具、生活用品为主。\n居民反馈：希望下次增加分类标识；现场有两处排队较长。\n一共交换了58件物品。参与人数的汇总表还没拿到。\n预算批复为800元；实际支出票据还没汇总。\n下次计划：分类分区，增加登记点。\n希望整理成发给社区负责人的简短总结。`;
+  const supplement = `【虚构练习补充事实】\n到场居民：46人，不含6名志愿者。\n参与人数口径：登记表按人去重，同一个人重复到场只计一次。\n实际支出：物料180元、场地布置240元、饮水160元，合计580元。\n预算批复：800元。未使用预算：220元，不等于相较上次活动的节约金额。\n没有上次活动的人数或支出数据，不能做同比结论。\n58件为完成交换的物品数量，不是参加人数。`;
+  const prompt = `请根据以下活动记录，给社区负责人写一份400字以内的活动总结。\n目标：让负责人了解成果、问题和下次改进。\n只使用材料中的事实，不编造人数、费用或评价。\n缺失信息写“待补充”，并在文末列出需要我确认的问题。\n按“活动概况／主要成果／问题与改进／待确认事项”输出。\n验收：日期地点准确；人数与物品数量不混淆；预算不写成实际支出。\n\n【活动记录】\n${raw}`;
+  const handoff = `任务：为社区负责人写400字以内活动总结。\n材料版本：活动记录v1 + 补充事实v2。\n已确认：2026-09-20；46名居民（不含6名志愿者）；交换58件；预算800元；实际支出580元。\n已完成：初稿、事实核对。\n未完成：压缩正文并保存最终版。\n必须保留：问题是分类标识不足与排队；改进为分类分区和增加登记点。\n禁止：编造满意度；做没有依据的同比；把800元写成支出。\n交付：400字以内正文 + 事实核对清单。\n下一步：先复述关键数字和限制，等我确认后继续。`;
+  const materials = [
+    {name:'01-活动原始记录.txt',text:raw}, {name:'02-补充事实.txt',text:supplement},
+    {name:'03-任务模板.txt',text:prompt}, {name:'04-任务交接模板.txt',text:handoff},
+    {name:'05-活动统计.csv',text:'分组,报名居民人数,到场居民人数,备注\nA组,20,18,已按人去重\nB组,18,16,已按人去重\nC组,14,12,已按人去重\n志愿者,6,6,不计入居民到场人数\n'},
+    {name:'06-支出明细.csv',text:'项目,实际支出元\n物料,180\n场地布置,240\n饮水,160\n'},
+    {name:'07-参考答案与验收.txt',text:'居民报名52人、到场46人；到场率46/52约88.5%。志愿者不计入居民口径。\n实际支出580元，未使用预算220元。没有同比资料。\n\n参考总结：\n9月20日，青禾社区在社区活动室举办旧物交换日，46名居民参与，另有6名志愿者提供引导和登记服务，共完成58件物品交换。活动物品主要为书籍、玩具和生活用品，实际支出580元，预算800元。现场存在分类标识不足、两处排队较长的问题。建议下次分类分区，并增加登记点。\n\n验收：日期地点、人数口径、物品数、费用核对；改进有材料依据；字数不超过400；无编造评价与同比。'}
+  ];
+  const slides=[];
+  const s=(ch,layout,title,data,notes,goal)=>slides.push({id:slides.length+1,ch,layout,title,...data,notes,goal:goal||title});
+  const chapter=(ch)=>s(ch,'chapter',chapters[ch-1].title,{subtitle:chapters[ch-1].subtitle},`用一个生活问题引入本章：${chapters[ch-1].subtitle}。可按目录选讲。`);
+  const list=(ch,title,items,notes,takeaway)=>s(ch,'list',title,{items:items.map(([label,body])=>({label,body})),takeaway},notes);
+  const compare=(ch,title,left,right,notes,takeaway)=>s(ch,'compare',title,{left:{title:left[0],lines:left.slice(1)},right:{title:right[0],lines:right.slice(1)},takeaway},notes);
+  const flow=(ch,title,nodes,notes,takeaway)=>s(ch,'flow',title,{nodes:nodes.map(([label,detail])=>({label,detail})),takeaway},notes);
+  const quiz=(ch,title,question,options,correct,explanation,notes)=>s(ch,'quiz',title,{question,options,correct,explanation},notes);
+  const statement=(ch,title,headline,body,notes)=>s(ch,'statement',title,{headline,body},notes);
+
+  s(1,'cover','零基础 AI 入门',{headline:'让 AI 成为\n你的[[拿手好戏]]',subtitle:'从听懂名词，到交付第一份成果',meta:'中文现场课 · 12 个章节 · 可离线播放'},'开场问：最近有没有遇到一件“知道该做、但懒得开始”的工作？让观众说一个例子。今天不需要代码基础，也不需要先记住所有品牌。');
+  list(1,'先从一件小事开始',[['整理','把杂乱记录变成清楚的总结'],['表达','把几句想法变成可用的初稿'],['检查','找遗漏、对数字、列待办']],'请学员举出一个真实但不敏感的任务。避免承诺AI能替代所有工作；这里讲的是适合辅助的任务。','今天的目标：你能把一件事交代清楚，并检查结果');
+  compare(1,'今天要完成的成果',['手里的材料','零散记录、未汇总的人数','预算和支出混在一起','一句“帮我写个总结”'],['交付给负责人','事实清楚的活动总结','问题与改进建议','一份核对过的最终版'],'展示原材料与最终成果的差异，先不讲完整方法。案例和数字全部虚构。强调文笔之外还要事实与交付。');
+  statement(1,'合理期待','初稿可以很快\n[[验收仍然重要]]','AI 会遗漏、会猜错，也可能把一句建议说成已经完成。','可以开玩笑：“写得像领导满意，不等于数字经得住财务。”边界：不是所有模型都以相同方式工作，也不是所有错误都叫幻觉。');
+  flow(1,'这堂课的路线',[['听懂','认识基础名词'],['会用','完成一次任务'],['用稳','管理信息与验收'],['进阶','知道下一步入口']],'完整课可分两次授课。第一次以第1–6章为主；第二次讲长任务与验收。目录能直接跳章节。');
+
+  chapter(2);
+  s(2,'diagram','AI、大模型和应用',{kind:'layers',takeaway:'你操作的是应用；模型提供能力；AI 是更大的领域'},'AI（Artificial Intelligence，人工智能）是广泛领域。大模型只是其中一类技术。大语言模型以语言理解与生成为重要能力。图中是入门关系示意，不代表所有AI都使用大模型。');
+  statement(2,'大模型是什么','从大量数据中学习\n[[理解与生成的规律]]','它可以解释、改写和分析，但不会天然知道你的私人资料。','像练过很多题的助手，这是建立直觉的比喻。模型训练通常调整参数，当前对话提供资料则属于使用阶段；发一份文件不等于给基础模型重新训练。');
+  compare(2,'模型与应用',['模型 · 能力来源','理解、生成、分析','可有不同版本与模式','同一模型可被多个应用使用'],['应用 · 你使用的产品','聊天界面、文件入口','搜索、导出、权限与流程','可调用一个或多个模型'],'类比发动机与汽车，但模型不只像机械发动机，应用也不是简单外壳。模型会某种能力，不代表应用已经开放相应功能。','选产品时，既看模型，也看工具和交付方式');
+  s(2,'diagram','公司、模型、应用',{kind:'company',takeaway:'同名很常见，先判断它在句子里指哪一层',sources:['deepseek']},'示例：深度求索是公司，DeepSeek系列是模型，DeepSeek网页版是应用。名字可以相同，层级不同。这里只呈现一个例子，更多国内产品在第4章。');
+  statement(2,'提示词（Prompt）','你给 AI 的\n[[任务说明]]','“把这份记录整理成400字以内总结，缺失信息标待补充。”','提示词不需要像咒语。自然语言也可以。它可以包含任务、背景、约束和材料，系统还可能给模型提供其他指令。');
+  list(2,'多模态（Multimodal）',[['文字','输入问题、材料，获得文字结果'],['图像与声音','读图片、理解语音，或生成相应内容'],['能力看产品','能看图不一定能生图；能听音不一定能编辑音频']],'多模态指处理多种信息形式。是否支持图片、音频、视频以及输入还是输出，取决于所选模型与产品功能。别把“支持图片”当成能处理一切媒体。');
+  s(2,'tokens','Token：信息处理的单位',{takeaway:'一个汉字不固定等于一个 Token'},'Token（词元）是模型把信息转成可处理表示时使用的单位。这里点击显示的切分仅是教学示意，不能拿来精确计费。文字、图片等的计量方式因模型而异。估算用量要看相应产品说明。', '理解 Token 与文字数量并非固定对应');
+  s(2,'diagram','上下文（Context）',{kind:'context',takeaway:'上下文 = 这次生成实际提供给模型的信息'},'桌面比喻：做任务时摆在眼前的资料。可能包含应用指令、你的需求、选取的历史、文件片段、工具结果。注意“可能”，不是每次都把所有内容原样放进去。');
+  compare(2,'聊天记录与当前上下文',['聊天记录','界面里能回看的历史','可能保存很长时间','不保证每条都用于这次生成'],['当前上下文','这次实际送入的信息','有容量与组织方式','可能只含选取内容或摘要'],'观众常以为“你明明看得到就该记得”。界面存储与模型当前输入不同。实际机制因产品而异。','重要要求：整理成清单，并在关键阶段重申');
+  s(2,'meter','上下文窗口',{headline:'一次能容纳的[[信息容量]]',parts:[['指令',16],['对话与资料',49],['工具结果',17],['输出空间',18]],takeaway:'容量更大，不等于每个细节都更准确'},'示意比例没有对应真实产品。窗口通常用Token描述，输入与输出如何共享额度取决于模型接口和产品规则。更多材料也可能分散注意，应提供相关资料。');
+  compare(2,'上下文压缩与记忆',['上下文压缩','把历史整理得更短','给后续工作保留重点','可能丢掉细节'],['产品记忆','保存部分信息用于后续','可有开关与范围限制','不等于保存全部聊天'],'本页先建立区别。第7章再演示具体失真。某些产品也会检索历史；不要把所有机制统称记忆。');
+  compare(2,'幻觉（Hallucination）',['看起来很可靠','“共有80人参与”','语气肯定、格式完整','材料其实没有这个数字'],['你能找到依据吗','回到原始记录检查','标出未知与待确认','缺依据时不补成事实'],'幻觉指看似合理但不真实或缺依据的生成。也可能是工具失败、材料看错、要求遗漏，应按原因修正。','确信的语气，不是证据');
+  flow(2,'推理：分析与求解',[['训练阶段','学习能力与规律'],['使用阶段','针对当前问题分析'],['验收阶段','检验结论与依据']],'中文“推理”有两种常见语境：reasoning强调分析求解；inference指已训练模型运行生成输出。不必让学员记缩写。思考时间更长或展示更多分析不保证正确。','请它解释依据、计算口径和检查方法');
+  quiz(2,'小测：它真的知道吗？','我说“按我们公司的制度报销”，但没有给制度文件。AI 能保证按最新版执行吗？',['能，大模型读过很多资料','不能，先提供适用的制度与版本','能，多聊几轮就会知道'],1,'公司内部制度需要你提供或通过已授权资料连接获得，还要核对适用版本。','请观众先投票再点答案。正确选项不代表文件被完整读取了，还需验证材料范围。');
+  list(2,'先记住这四件事',[['模型提供能力','应用提供界面、工具与流程'],['材料进入上下文','出现过不等于始终完整可用'],['生成结果要核查','任务说明、事实依据、最终交付']],'请三位学员分别解释模型、上下文、幻觉。没有记住英文没关系，能解释使用影响就达到了目标。');
+
+  chapter(3);
+  compare(3,'回答与执行',['给出建议','“可以把结果保存成文件”','你还要自己操作','这是一段文字'],['实际执行','工具写入文件','检查返回结果与文件','你能打开交付物'],'不要说传统聊天全部不能执行，现代聊天应用也可能有工具。这里比较两个行为，不是比较两个品牌。','看到“已完成”，还要看到实际结果');
+  flow(3,'工具调用（Tool Calling）',[['提出任务','请整理这份表格'],['调用工具','读取、计算或保存'],['返回结果','成功、失败或部分完成'],['继续判断','修正并检查交付']],'工具调用是通过工具执行搜索、读取、计算等操作。模型提出调用不等于调用已执行，返回成功也不等于文件内容合格。');
+  s(3,'diagram','Agent：围绕目标行动',{kind:'agent',takeaway:'Agent（智能体）组织判断、行动和反馈'},'像带着任务清单做事的流程，不是一个保证万能的人。它可以使用一个或多个模型和工具，也可能没有复杂自主规划。产品中的智能体一词用法较宽，要看实际行为。');
+  s(3,'diagram','Harness：把模型组织起来',{kind:'harness',takeaway:'Harness 是外围运行系统，不是另一个模型'},'Harness可暂理解为运行框架：组织上下文、工具、权限、执行循环、错误恢复等。不是统一型号，也不是所有应用都这样命名。只要求学员听懂其职责，不要求配置。');
+  compare(3,'工作空间与权限',['工作空间','这次工作的资料范围','选定目录、项目或附件','不等于整台电脑'],['操作权限','允许哪些工具做什么','读取、修改、联网、发送','权限范围由产品与授权决定'],'用练习目录和副本。读一个文件与修改全部文件不同。讲师演示文件操作时先确认所选应用支持该行为。');
+  flow(3,'一个执行循环',[['计划','整理活动记录'],['行动','读取并生成初稿'],['反馈','发现人数缺失'],['修正','补资料并重做']],'这是示意循环，不是真实模型调用。强调遇到失败可以收集原因继续，而不是让AI无限循环。阶段验收能尽早发现偏离。');
+  quiz(3,'小测：完成的证据','AI 回复“表格已经整理好”。你下一步做什么？',['转发这句话给同事','找到文件，打开核对数据和格式','继续说谢谢就可以'],1,'交付物能打开、内容合格、位置正确，才算这项任务完成。','如果工具报错，必须先确认是否实际生成了产物，不要只读聊天摘要。');
+
+  chapter(4);
+  s(4,'table','先分层，再记名字',{columns:['公司 / 团队','模型家族示例','应用 / 入口示例'],rows:[['深度求索','DeepSeek 系列','DeepSeek 网页版'],['字节跳动','豆包模型系列','豆包'],['月之暗面','Kimi 模型系列','Kimi'],['阿里云','Qwen / 千问系列','官方应用与模型服务']],caption:'模型家族与应用并非一一绑定 · 资料核实 2026-10-13',sources:['deepseek','doubao','kimi-api','qwen']},'只举模型家族，不把网页标题中的当前型号作为长期教学重点。公司名、模型名、应用名可能重复。阿里这一行不锁定某个消费应用名称，现场从官方入口核验。');
+  s(4,'apps','国内应用：从任务选入口',{apps:[['DeepSeek','通用问答与文字任务','https://chat.deepseek.com/'],['豆包','聊天、文字与语音场景','https://www.doubao.com/'],['Kimi','问答与知识工作候选','https://www.kimi.com/'],['WorkBuddy','可选：文件与多步骤任务','https://www.workbuddy.cn/']],sources:['deepseek','doubao','kimi','workbuddy'],caption:'候选入口，非排名 · 账号功能以现场实际为准'},'普通文字案例可用任一聊天候选。文件执行示例只在WorkBuddy等应用实际支持且已授权时展示。不要把模型API文档中的能力直接映射到网页账号。');
+  list(4,'按交付物选工具',[['只需要一段文字','选择易用的聊天应用，复制并保存'],['需要最新资料','检查应用有没有可用的搜索与来源'],['需要可用文件','检查生成、下载、编辑与本地操作能力']],'能力名称不够，还要看你最终能拿到什么。提醒观众页面中可能有收费或额度限制，课前由讲师检查实际账号。');
+  compare(4,'同一个名字，功能也可能不同',['模型公开能力','支持某些输入和输出','开放平台可调用工具','这说明模型与接口的能力'],['你的应用账号','界面有没有入口','当前权限与额度够不够','能不能取得需要的成果'],'不把API支持文件问答等同网页支持相同文件处理。功能可能随版本、区域、账号而变，本课程不承诺每个入口都具备相同功能。');
+  list(4,'课前检查三件事',[['能进入','用自己的账号确认登录与访问'],['能完成','用练习材料走完一次任务'],['有备用','断网时用课程内的离线模拟']],'当前官方入口核实日期2026-10-13，但未登录验证具体账号。真实界面不硬编码位置，讲师课前打开官方入口走一遍。课程备用是明确模拟，不冒充真实截图。');
+  quiz(4,'小测：选什么？','你要把一份活动记录变成400字以内总结。最先检查什么？',['排行榜第一名是谁','能否提交材料并得到可保存的文字','哪个名字最像大模型'],1,'先匹配任务输入与交付方式，再比较质量、速度和用量。','现场可以给出两个已准备好的国内入口，不要求所有学员注册所有应用。');
+
+  chapter(5);
+  s(5,'document','练习材料：社区旧物交换日',{docTitle:'活动记录 · 节选',text:'2026年9月20日，青禾社区活动室。\n完成58件物品交换，分类标识不足，两处排队较长。\n人数汇总表还没拿到。\n预算800元，实际支出票据未汇总。',caption:'虚构、脱敏练习 · 原始材料可下载',download:true},'下载01原始记录。问观众：哪两个关键数字还不清楚？人数与实际支出。58是件数，800是预算。');
+  flow(5,'第一次操作：通用路径',[['进入应用','从官方入口登录'],['新建对话','把练习材料粘贴进去'],['提交任务','说清目标和限制'],['查看结果','先对事实，再看表达']],'可现场用DeepSeek、豆包或Kimi的任一已准备账号。使用粘贴文字路径，避免依赖特定附件类型或按钮位置。涉及登录的界面按实际版本操作，未登录时可继续离线模拟。');
+  s(5,'prompt','给 AI 的第一条任务',{text:prompt,compact:true,copy:true},'示范从材料复制到聊天输入框。附件作为可选补充，粘贴文本是基本路线。如果应用有联网开关，这个封闭材料任务不需要主动联网。');
+  s(5,'document','初稿：哪里出了问题？',{docTitle:'待核查初稿 · 故意包含错误',text:'青禾社区旧物交换日共有[[80名居民]]参与，完成58件物品交换。\n本次活动实际支出[[800元]]，比上次[[节约25%]]。\n居民反响热烈，满意度[[达100%]]。',caption:'教学构造的错误示例，不是真实应用输出'},'逐个让观众找错：80没有来源；800是预算；没有上次数据；没有满意度调查。不要暗示所有应用必然犯相同错误。');
+  quiz(5,'找错：预算能当支出吗？','记录中只有“预算800元”，总结写“实际支出800元”。这是什么问题？',['数字相同，所以没问题','把两个不同口径混在一起','只需要换一个更漂亮的说法'],1,'预算是计划或批准金额，实际支出要依据票据或账目。','这是口径错误，可能和猜测一起出现。需要补材料，而非只要求润色。');
+  s(5,'prompt','纠正时，把依据补上',{text:'请修订初稿：\n1. 到场居民46人，不含6名志愿者；按人去重。\n2. 实际支出：180 + 240 + 160 = 580元；预算800元。\n3. 没有上次活动数据，也没有满意度调查。\n删除无依据的同比和满意度。\n保留分类标识不足与排队问题，并对应提出改进。',copy:true},'下载02补充事实。纠正应该明确指出哪里错、正确依据是什么、哪些内容必须删除。不能让AI用另一个猜测替换旧猜测。');
+  s(5,'document','修订版：每个数字有来处',{docTitle:'活动总结 · 参考片段',text:'9月20日，青禾社区在社区活动室举办旧物交换日。[[46名居民]]参与，另有6名志愿者提供服务，共完成[[58件]]物品交换。\n实际支出[[580元]]，预算800元。\n现场分类标识不足、两处排队较长。建议下次分类分区，并增加登记点。',caption:'参考答案，允许有不同写法'},'对照材料逐项验收。人数口径、物品数量、费用分别核对。这里没有声称重新生成真实AI结果，是课程参考片段。');
+  s(5,'simulation','离线演示：跑完一个任务',{takeaway:'这是固定脚本模拟，不调用真实 AI'},'点击推进模拟，共五个状态：材料、任务、错误初稿、补充修订、保存验收。实际输出可能不同。演示重点是方法，而非假装一个产品界面。');
+  flow(5,'保存与验收',[['取得内容','复制正文或下载产物'],['保存版本','明确文件名和位置'],['打开检查','文字、数字、排版'],['确认交付','发出前再核对一遍']],'若只有文字回答，复制到文档软件另存；若有可下载产物，下载后实际打开。默认不演示对外发送。以练习目录的副本为对象。','结果能打开、能用、能核对，才算交付');
+  list(5,'完整任务闭环',[['提出任务 + 提供材料','把要做什么和依据说明白'],['查看结果 + 修正','发现缺口后补事实与限制'],['保存成果 + 验收','确认文件和内容真正合格']],'请学员复述哪一步最容易省略。常见答案是验收，但材料范围和保存结果同样重要。');
+
+  chapter(6);
+  compare(6,'一句“帮我做一下”',['说得太宽','“帮我做个总结。”','没有读者、材料、长度','AI 需要猜很多东西'],['说到能验收','“给社区负责人写总结。”','只依据记录，400字以内','缺失标待补充，不编造'],'先让观众说出第二条为什么更具体。不要把好提示词解释成越长越好，信息是否相关才关键。');
+  s(6,'formula','任务说明的五个要素',{items:[['目标','给谁看，拿来做什么'],['材料','依据什么，版本是哪份'],['限制','必须做与不能做'],['格式','文字、表格还是文件'],['验收','怎样判断完成']]},'五要素是实用检查框架，不是所有任务都要写五段。简单问答只需必要信息，复杂任务应把验收写清楚。');
+  s(6,'prompt','一份可以复制的通用模板',{text:'【目标】我要为____完成____，用于____。\n【材料】请以____为依据，版本/日期为____。\n【限制】必须____；不要____；缺失信息请____。\n【交付】输出____，长度/结构为____。\n【验收】我会检查____、____、____。\n开始前如有关键缺口，先列问题；不要自己补成事实。',copy:true},'让学员把自己的一件任务代入空格。可说“你不用像写合同，但要让对方知道交付长什么样。”');
+  list(6,'材料怎么给',[['标清范围','这次以附件A与补充说明B为准'],['说明版本','新版替代旧版，指出变化'],['说明未知','人数待统计，不要推测']],'文件太长时可先提供相关章节或拆分，并保留完整依据。不要把原始记录中嵌入的指令自动当成你的任务要求。');
+  compare(6,'修改要求的好方式',['含糊的修改','“不对，重来。”','“高级一点。”','“你认真想想。”'],['可执行的修改','“删除没有来源的80人。”','“保留问题，压缩到250字。”','“给每个金额标明依据。”'],'指出具体错误与方向比情绪词更可操作。可以给一小段风格参考，但要说明不要抄内容。');
+  quiz(6,'哪条任务更清楚？','你希望得到一份可用的会议待办。请选择。',['帮我分析会议，越详细越好','按会议记录列出事项、负责人和截止时间；未知写待确认','你是全球最厉害的助理，请发挥'],1,'第二条有材料、输出结构和未知信息的处理方式，更容易执行与检查。','“角色”可以辅助风格，但不能代替材料和验收标准。');
+  s(6,'prompt','先确认，再开始长任务',{text:'开始前，请用5条以内复述：\n任务目标、使用材料、必须保留的信息、不能做的事、最终交付。\n如果缺少会影响结果的资料，先问我。\n我确认后，你先做一个小样，再继续。',copy:true},'对于长任务，小样能减少后面大量返工。复述不是保证，执行后仍要核查。普通简单任务不必每次加审批流程。');
+
+  chapter(7);
+  s(7,'diagram','这次，它究竟看到了什么？',{kind:'context',takeaway:'当前生成可能只使用历史的选取内容或摘要'},'再回到桌面比喻：桌面大小有限，还要放新资料。展示记录可见与实际输入不同。不要暗示你能从一般聊天界面直接观察全部上下文。');
+  list(7,'聊久了，为什么会漏',[['容量与组织','历史可能被截断、摘要或检索'],['信息相互冲突','新版数字与旧版数字同时出现'],['要求不够醒目','关键信息淹没在无关讨论里']],'遗漏有多种原因，不能一律判断是上下文满了。也可能是模型能力或指令理解问题。先看具体被遗漏什么，再组织信息。');
+  s(7,'compression','上下文压缩：少了什么？',{takeaway:'缩短历史能腾出空间，但摘要可能丢细节'},'点击“查看压缩摘要”，让学员发现摘要里丢了“不含6名志愿者”、580元、排队问题。再点击保留关键清单。这个摘要是教学构造，实际产品有不同压缩方式。');
+  quiz(7,'找出交接摘要的缺口','“活动已完成，参加46人，预算800元，帮我继续写。”最容易导致哪个错误？',['把预算当成实际支出，且忽略人数口径','字体大小不统一','无法理解“活动”这个词'],0,'缺少实际支出580元、居民与志愿者的口径，也没写清下一步和必须保留的内容。','让学员补一条更完整的摘要，而不是只找答案。');
+  compare(7,'当前上下文、历史与记忆',['当前任务需要','原始材料与最新数字','明确要求和中间结果','已确认与未完成事项'],['产品可能保存','聊天历史','部分长期偏好或信息','开启的项目资料 / 检索内容'],'三个层面可以交叉，但不能等同。记忆是否存在、如何关闭删除、是否跨对话，需看所用产品实际说明。');
+  s(7,'prompt','长任务的交接摘要',{text:handoff,compact:true,copy:true},'复制04任务交接模板。先复述关键数字的要求有助于发现材料丢失，但不能证明工具已经读取全部附件。保留原始材料是核查基础。');
+  flow(7,'拆任务，但保留一条主线',[['整理事实','形成已确认事实表'],['生成内容','按结构写初稿'],['检查修订','逐项对照依据'],['保存交付','保留最终版与材料']],'不是按任意字数切割，而是按可检查的阶段拆分。每段都有输入与输出。主线是目标、事实、约束、下一步。');
+  list(7,'什么时候适合新开对话',[['话题已经混杂','新任务与旧任务关系很小'],['信息版本混乱','先确认最终事实，再提供摘要'],['重新开始前','带上原始依据、交接摘要与要求']],'新对话可能减少无关历史，也可能丢掉重要背景。不要说新开必然提高准确率。用有依据的交接降低风险。');
+
+  chapter(8);
+  s(8,'prompt','实战一：会议记录变成待办',{text:'请把会议记录整理成待办表：\n列为“事项／负责人／截止时间／依据”。\n只有明确决定的内容进入待办。\n负责人或时间没有说清楚就写“待确认”。\n不要把讨论中的建议写成已经决定的任务。',copy:true},'用虚构短记录：小王提议做海报，负责人说待下周确认；小李已确定周五完成名单。正确待办只有后一项，前者列待确认。');
+  compare(8,'建议、决定与事实',['会议原话','“也许做张海报会更好。”','“小李周五前完成名单。”','“预算还在审批。”'],['整理结果','建议：做海报，尚未决定','待办：小李 / 周五 / 名单','状态：预算待批准'],'让观众把每句话归类。摘要常会把未决定事项写成决定，要用依据列防止越界。');
+  s(8,'prompt','实战二：查资料，带上来源',{text:'请查找[主题]的相关资料，优先使用官方或原始来源。\n为每条结论附可打开的链接、发布日期或适用日期。\n把“来源事实”和“你的推断”分开。\n无法确认的部分标为待核实，不编造引用。\n最后列出信息缺口与还需核查的问题。',copy:true},'示范前先确认应用当前搜索功能可用。浏览并不保证来源正确，引用可能不支持结论。离线时用已有来源记录讲方法，不假装执行实时搜索。');
+  list(8,'调研结果怎么核查',[['链接能打开','确认不是不存在的页面'],['原文支持结论','看对应段落，别只看标题'],['日期适用','分清发布日期、事件日期与有效期']],'官方来源也可能旧。二手文章可当线索，关键结论尽量回到原始依据。多篇转载不等于多个独立证据。');
+  s(8,'table','实战三：到场率怎么算？',{columns:['分组','报名居民','到场居民'],rows:[['A组','20','18'],['B组','18','16'],['C组','14','12'],['志愿者','6','6']],caption:'虚构练习 · 志愿者不计入居民到场率 · CSV 可下载',download:true},'下载05活动统计。让学员先说统计口径：只统计居民，报名52，到场46。志愿者单独列。没有逐人数据时，表中已注明分组人数已去重；不能再宣称做了身份证级去重。');
+  s(8,'stats','先确定口径，再看数字',{stats:[['52','报名居民'],['46','到场居民'],['88.5%','居民到场率']],formula:'46 ÷ 52 × 100% ≈ 88.5%',takeaway:'6名志愿者单独列示，不混入居民统计'},'此例按居民人头统计，A/B/C组互不重复。到场率是到场居民除以报名居民。保留小数位与四舍五入，别把58件交换物品放入公式。');
+  s(8,'prompt','实战四：文件操作先做副本',{text:'请只处理“练习副本”目录中的文件。\n先列出计划读取与修改的文件，说明目标。\n保留原文件，输出到“结果”目录。\n完成后列出生成文件的位置、处理范围和未完成项。\n不要删除原文件，不要对外发送。',copy:true,sources:['workbuddy']},'仅在应用确实能操作本地文件且已授权时做。WorkBuddy是候选示例，使用练习副本。普通聊天应用可用复制保存路线，不假装有本地执行权限。');
+
+  chapter(9);
+  list(9,'常见问题：先找原因',[['内容不对','检查依据、版本、未知信息'],['遗漏要求','重申关键限制，缩小当前任务'],['工具或文件失败','查看错误、结果位置与实际文件']],'先区分生成内容错误与实际执行错误。不要用“换个模型”代替检查原因，也不要无意义重复同一请求。');
+  s(9,'checklist','交付前的五项验收',{items:[['事实','名字、日期、数量能对上材料'],['数字','口径、公式、单位、总计一致'],['来源','链接真实，原文支持结论'],['格式','长度、结构与文件可用'],['范围','没有漏任务，也没有擅自扩展']]},'让观众用活动总结验收一次。验收以任务标准为准，不是必须每项都有，例如封闭材料任务没有外部链接也可以合格。');
+  compare(9,'中断之后怎么继续',['盲目继续','“刚才没做完，继续吧。”','不清楚哪些已保存','可能重复修改或漏掉部分'],['先确认进度','查看已生成文件和状态','区分已完成与未完成','从一个可检查的步骤恢复'],'网络或工具中断时，文字上下文与文件状态不一定一致。先检查已有产物，不要重复覆盖已核验结果。');
+  quiz(9,'验收练习：哪个结论有依据？','已知预算800元、实际支出580元，没有上次活动资料。',['比上次节约27.5%','未使用预算220元','居民满意度提高25%'],1,'800 − 580 = 220元；没有上一期与调查数据，不能做同比或满意度结论。','若提27.5%，只能准确说未使用预算占预算的27.5%，不能称同比节约。');
+  s(9,'prompt','让 AI 帮你检查自己的结果',{text:'请对照任务要求和原始材料检查这份结果。\n逐项列出：符合项、缺失项、无法确认项。\n为数字列出计算或材料依据。\n先报告问题，不要默默补成事实。\n我会再独立核对关键结论。',copy:true},'模型检查自己的答案可能重复原来的错误。这个步骤是辅助检查，不替代人工对照、计算器或可靠外部证据。');
+
+  chapter(10);
+  list(10,'模型怎么选',[['看任务难度','简单改写先试快的；复杂分析更重核查'],['看实际效果','用同一材料和验收标准比较'],['看工具条件','材料能不能读取，结果能不能交付']],'不做绝对排名。不同模型、模式与应用设置会影响效果，建议用自己的小任务比较质量与速度。');
+  s(10,'balance','质量、速度与成本',{takeaway:'“更贵”与“想得更久”都不保证每次更好'},'这是选择维度示意，不是性能数据图。先明确任务风险与验收标准，再决定投入。实际价格与套餐课前看官方页面，不在课程固化数字。');
+  list(10,'用量：不只看对话条数',[['文字与输出长度','更长输入、输出可能增加消耗'],['工具与多步骤任务','搜索、生成、执行可能单独计量'],['具体规则','次数、Token、积分或套餐，由产品决定']],'聊天订阅与API计费不是同一件事。产品规则会变化，课前检查当前账号与功能的额度。不要用演示Token示意图计算费用。');
+  compare(10,'资料范围与隐私',['先检查资料','是否含真实姓名、联系方式','是否含客户或内部机密','是否能用脱敏副本'],['再决定提交','查看产品数据使用说明','使用组织允许的入口','按任务提供必要范围'],'不要把“国内应用”当成自动满足所有隐私要求。避免引入法律结论；教学只提供任务范围和资料处理判断。材料练习完全虚构。');
+  flow(10,'操作权限：从小范围开始',[['读取','看指定练习资料'],['生成','输出到结果目录'],['修改','先在副本验证'],['对外操作','确认对象与内容']],'能读取不等于能修改；能生成不等于能发邮件。演示中不执行对外发送或删除操作。实际权限受产品设计和用户授权限制。');
+
+  chapter(11);
+  s(11,'diagram','Skills：任务说明与资源包',{kind:'skills',takeaway:'Skills（技能）让特定做法更容易复用',sources:['skills']},'例如活动总结技能可以包含结构说明、事实核对要求、模板与脚本。它不是安装即保证正确；产品是否兼容该格式以及实际权限仍需检查。');
+  s(11,'diagram','MCP：连接工具与数据',{kind:'mcp',takeaway:'MCP（模型上下文协议）提供标准化连接方式',sources:['mcp']},'类似统一接口的比喻：减少每个工具各接各的麻烦。协议不自动赋予访问权，仍要连接配置、账号权限与授权。不是模型本身，也不是必须掌握的入门配置。');
+  flow(11,'API：让程序调用服务',[['程序提出请求','带任务与所需参数'],['服务处理','运行模型或其他能力'],['程序取得结果','继续流程或展示给人']],'API（应用程序接口）可以理解为程序之间按约定发请求和拿结果的入口。普通入门用户先会用应用即可，不需要先写代码。密钥是访问凭据，不应放入公开材料。');
+  s(11,'diagram','知识库与 RAG',{kind:'rag',takeaway:'RAG（检索增强生成）：先找相关资料，再辅助回答'},'知识库是资料的组织与管理；RAG是检索相关内容加入模型输入再生成的流程，不等于重新训练。检索可能漏找、找错，模型也可能误解，引用仍需核查。');
+  flow(11,'自动化：把重复流程安排起来',[['明确规则','什么时候触发'],['限定范围','读取什么、能做什么'],['检查输出','成功与异常如何判断'],['保留反馈','需要人时怎么处理']],'自动化可以定时、事件触发或人工启动。先把单次流程做稳再重复，关注失败、重复执行与对外动作；不以“自动”作为正确保证。');
+  quiz(11,'小测：接上就全能了吗？','给应用接入 MCP 工具并安装 Skill 后，是否可以不用检查结果？',['可以，工具和技能会保证正确','不可以，权限、材料和验收仍然重要'],1,'连接方式、任务说明与执行质量是不同层面。依然要确认实际权限和成果。','请学员用自己的话分别解释Skill与MCP。只需知道用途，不考配置。');
+
+  chapter(12);
+  s(12,'diagram','把概念放回一张图',{kind:'overview',takeaway:'任务 + 材料 → 应用组织模型与工具 → 检查交付'},'让学员顺着箭头解释：人提出任务，应用组织模型、上下文、工具与权限。Skills帮助复用方法，MCP提供连接方式，最终仍要检查输出。');
+  s(12,'glossary','随查：核心名词',{entries:[['AI','人工智能领域'],['大模型','从大量数据中学习能力的模型'],['应用','组织模型、界面、工具与流程'],['提示词','你给AI的任务说明'],['Token','模型处理信息的单位'],['上下文','本次生成实际提供的信息'],['上下文窗口','一次可容纳的信息容量'],['幻觉','看似合理但缺依据或不真实']]},'这一页适合复习，不适合第一次密集讲定义。各词的具体边界与例子回到第2章。');
+  s(12,'glossary','随查：执行与进阶',{entries:[['工具调用','通过工具执行读取、搜索等操作'],['Agent','围绕目标组织行动与反馈'],['Harness','组织模型运行的外围系统'],['上下文压缩','缩短历史并保留重点'],['记忆','产品保存并在后续使用的信息'],['Skills','特定任务的说明与资源'],['MCP','连接工具与数据的标准方式'],['API / RAG','程序调用接口 / 检索增强生成']]},'本页的短释义用于回忆。压缩和记忆不是同一机制；API与RAG是两个不同概念，不因为共用一行就混为一谈。');
+  s(12,'prompt','带走你的第一条任务',{text:'我要为【读者】完成【成果】，用于【用途】。\n请以【材料与版本】为依据。\n必须【限制】，不要【禁止项】。\n按【格式】交付；缺失信息【处理方式】。\n完成后，我会核对【事实、数字、格式与范围】。',copy:true},'请每位学员当场补完整一条任务。可以选工作总结、读书笔记、旅行资料整理，但不要拿敏感资料现场尝试。');
+  s(12,'checklist','第一次使用清单',{items:[['准备','选官方入口；用虚构或脱敏材料'],['提交','写清目标、材料、限制与交付'],['检查','对照依据，找错与补缺'],['保存','实际打开结果，保留材料与版本']]},'把清单当成第一天的操作顺序。无需每次重学品牌，每项检查对应不同产品都能迁移。');
+  s(12,'exercise','课后练习：你来完成闭环',{headline:'把活动记录\n整理成[[一份可交付总结]]',tasks:['先交出不编造的初稿','补充人数与实际支出后修订','保存最终版并写出验收结论'],download:true},'发放练习材料，先只给01，再发02，模拟真实补充资料。参考答案放07，不必要求文字一模一样。判断标准是事实、口径、问题改进、长度和可用成果。');
+  s(12,'sources','官方资料与核实日期',{caption:'公开资料核实：2026-10-13 · 账号功能与价格请课前复核'},'这些链接供课前准备和课后查询，正文知识不依赖联网。没有登录核验账号界面，不展示虚构的产品截图。已核实范围见资料来源文件。');
+  s(12,'closing','现在，把一件事交给 AI',{headline:'说清楚。\n[[做出来。]]\n检查好。',subtitle:'你的第一份成果，从一个具体任务开始。',download:true},'最后请观众说出自己下一次会交给AI的一件事，以及如何判断完成。结束后可从目录回到模板或例子，所有练习材料都能离线下载。');
+  return {chapters,sources,slides,materials,raw,supplement,prompt,handoff};
+});
+
+</script>
+  <script>
+(function(root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.DeckCore = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function() {
+  const clamp = (n, max) => Math.max(0, Math.min(max, Number.isFinite(n) ? Math.trunc(n) : 0));
+  const initial = (total, index = 0) => ({total, index:clamp(index,total-1), step:0});
+  const jump = (s,index) => ({...s,index:clamp(index,s.total-1),step:0});
+  const next = (s,steps) => s.step < steps ? {...s,step:s.step+1} : s.index < s.total-1 ? jump(s,s.index+1) : {...s};
+  const prev = (s,previousSteps) => s.step > 0 ? {...s,step:s.step-1} : s.index > 0 ? {...s,index:s.index-1,step:previousSteps} : {...s};
+  const parseHash = (hash,total) => {
+    if (!/^#\/[1-9]\d*$/.test(hash)) return 0;
+    const n = Number(hash.slice(2));
+    return n <= total ? n-1 : 0;
+  };
+  return {initial,jump,next,prev,parseHash};
+});
+
+</script>
+  <script>
+(() => {
+  'use strict';
+  const C = window.Course, Core = window.DeckCore;
+  const $ = id => document.getElementById(id);
+  const esc = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const rich = text => esc(text).replace(/\[\[(.*?)\]\]/g,'<span class="accent">$1</span>').replace(/\n/g,'<br>');
+  const pad = n => String(n).padStart(2,'0');
+  const reveal = (n,extra='') => `class="${extra} reveal${n===0?' shown':''}" data-step="${n}"`;
+  let state = Core.initial(C.slides.length, Core.parseHash(location.hash,C.slides.length));
+  let reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try { const saved=localStorage.getItem('ai-deck-motion'); if(saved!==null) reduced=saved==='reduced'; } catch {}
+  let activeModal = '', restoreFocus = null, toastTimer, animationFrame;
+  const answers = new Map();
+  const experiments = new Map();
+  const steps = s => ['list','checklist','flow','formula'].includes(s.layout) ? Math.min(3,(s.items||s.nodes).length-1) : s.layout==='diagram' ? 2 : ['compare','statement','balance','exercise'].includes(s.layout)?1:0;
+  const rowList = s => `<div class="list-lines ${s.items.length>3?'five':''}">${s.items.map((it,i)=>`<div ${reveal(Math.min(i,3))}><div class="list-row"><span class="item-no">${pad(i+1)}</span><div class="list-label">${esc(it.label||it[0])}</div><div class="list-body">${esc(it.body||it[1])}</div></div></div>`).join('')}</div>`;
+  const box = (x,y,w,h,title,sub='',cls='box') => `<rect class="${cls}" x="${x}" y="${y}" width="${w}" height="${h}" rx="6"/><text x="${x+w/2}" y="${y+(sub?h/2-4:h/2+10)}" text-anchor="middle">${esc(title)}</text>${sub?`<text class="small" x="${x+w/2}" y="${y+h/2+36}" text-anchor="middle">${esc(sub)}</text>`:''}`;
+  const line = (x1,y1,x2,y2) => `<path class="wire" d="M${x1} ${y1} L${x2} ${y2}" marker-end="url(#arrow)"/>`;
+  const svg = content => `<div class="diagram-wrap"><svg class="diagram-svg" viewBox="0 0 1416 430" role="img" aria-label="${esc(C.slides[state.index].title)}关系示意"><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10" fill="#87d6ec"/></marker><filter id="nodeGlow"><feGaussianBlur stdDeviation="5"/></filter></defs>${content}</svg></div>`;
+  function diagram(kind) {
+    if(kind==='layers') return `<div class="layers"><div class="layer layer-ai"><div class="layer-name"><strong>AI</strong><p>人工智能领域</p></div><div ${reveal(1,'layer layer-model')}><div class="layer-name"><strong>大模型</strong><p>其中一类技术</p></div></div></div><div class="layer-connector" aria-hidden="true">→</div><div ${reveal(2,'layer layer-app')}><strong>应用</strong><p>组织能力与使用入口</p></div><div class="layer-caption">AI 还包含其他方法。<br><br>应用调用模型，<br>并提供界面与工具。</div></div>`;
+    if(kind==='company') return svg(`<g ${reveal(0)}>${box(10,130,360,170,'公司','深度求索')}</g><g ${reveal(1)}>${line(390,215,490,215)}${box(520,130,360,170,'模型家族','DeepSeek 系列')}</g><g ${reveal(2)}>${line(900,215,1010,215)}${box(1040,130,365,170,'应用入口','DeepSeek 网页版')}</g><text class="small" x="710" y="385" text-anchor="middle">研发与提供能力 → 组织能力 → 用户使用</text>`);
+    if(kind==='context') return svg(`<g ${reveal(0)}>${box(26,55,280,120,'任务与指令','目标 / 限制')}${box(26,245,280,120,'选取的历史','完整片段 / 摘要')}</g><g ${reveal(1)}>${box(1108,55,280,120,'文件与资料','可能是相关片段')}${box(1108,245,280,120,'工具返回','搜索 / 读取结果')}${line(320,120,492,212)}${line(320,305,492,230)}${line(1090,120,920,210)}${line(1090,305,920,233)}</g><g ${reveal(2)}><circle class="pulse-ring" cx="708" cy="214" r="157"/><circle class="pulse-ring" cx="708" cy="214" r="137"/>${box(505,146,405,142,'当前上下文','这次实际提供的信息')}</g>`);
+    if(kind==='agent') return svg(`<g ${reveal(0)}>${box(28,145,280,140,'目标','可验收的结果')}</g><g ${reveal(1)}>${line(329,216,480,216)}${box(510,145,370,140,'判断与计划','选取下一步行动')}${line(902,216,1050,216)}${box(1080,145,300,140,'调用工具','执行具体操作')}</g><g ${reveal(2)}><path class="wire" d="M1230 302 L1230 362 L695 362 L695 302" marker-end="url(#arrow)"/><text class="small" x="960" y="407" text-anchor="middle">读取反馈，决定继续、修正或停止</text></g>`);
+    if(kind==='harness') return svg(`<g ${reveal(0)}><rect class="softbox" x="10" y="20" width="1390" height="385" rx="8"/><text class="small" x="42" y="58">外围运行系统 · Harness</text>${box(533,150,350,140,'模型','理解 / 生成 / 分析')}</g><g ${reveal(1)}>${box(70,116,300,100,'上下文组织')}${box(70,258,300,100,'执行与反馈')}${line(392,165,516,206)}${line(392,304,516,250)}</g><g ${reveal(2)}>${box(1046,116,300,100,'可用工具')}${box(1046,258,300,100,'权限与范围')}${line(903,206,1028,165)}${line(903,250,1028,304)}</g>`);
+    if(kind==='skills') return svg(`<g ${reveal(0)}>${box(35,145,340,150,'任务','写活动总结')}</g><g ${reveal(1)}>${line(395,220,528,220)}${box(555,92,365,254,'Skill 资源包','说明 / 模板 / 参考资料')}<text class="small" x="737" y="293" text-anchor="middle">可包含脚本与其他资源</text></g><g ${reveal(2)}>${line(943,220,1070,220)}${box(1100,145,285,150,'辅助执行','仍需检查成果')}</g>`);
+    if(kind==='mcp') return svg(`<g ${reveal(0)}>${box(30,150,320,145,'AI 应用','提出工具请求')}</g><g ${reveal(1)}>${line(370,222,530,222)}${box(555,150,300,145,'MCP','标准化连接')}</g><g ${reveal(2)}>${line(875,222,1060,75)}${line(875,222,1060,217)}${line(875,222,1060,360)}${box(1090,25,295,105,'资料服务')}${box(1090,168,295,105,'搜索工具')}${box(1090,310,295,105,'业务系统')}</g>`);
+    if(kind==='rag') return svg(`<g ${reveal(0)}>${box(20,145,270,145,'问题','我该按哪条制度？')}</g><g ${reveal(1)}>${line(310,218,422,218)}${box(450,145,365,145,'检索相关资料','从知识库找依据')}</g><g ${reveal(2)}>${line(838,218,975,218)}${box(1005,145,375,145,'模型辅助回答','结合检索片段生成')}<text class="small" x="918" y="377" text-anchor="middle">仍要核查资料版本、引用与结论</text></g>`);
+    if(kind==='overview') return svg(`<g ${reveal(0)}>${box(10,160,290,145,'任务与材料','人的目标与依据')}</g><g ${reveal(1)}>${line(320,232,440,232)}<rect class="softbox" x="460" y="30" width="515" height="385" rx="7"/><text class="glow" x="718" y="97" text-anchor="middle">应用</text>${box(492,137,205,95,'模型')}${box(732,137,205,95,'上下文')}${box(492,272,205,95,'工具')}${box(732,272,205,95,'权限')}</g><g ${reveal(2)}>${line(995,232,1090,232)}${box(1112,160,295,145,'结果与验收','能打开 / 能用 / 有依据')}</g>`);
+    return '';
+  }
+  function renderBody(s) {
+    switch(s.layout) {
+      case 'cover': return '';
+      case 'chapter': return '';
+      case 'closing': return `<div class="inline-actions"><button class="action-button primary" data-action="materials">↓ 获取练习材料</button><button class="action-button" data-action="directory">回到课程目录</button></div>`;
+      case 'statement': return `<div class="statement-text">${rich(s.headline)}</div><p ${reveal(1)}><span class="statement-body">${esc(s.body)}</span></p>`;
+      case 'list':case 'checklist':return rowList(s);
+      case 'compare':return `<div class="compare-grid">${[s.left,s.right].map((side,i)=>`<div ${reveal(i)}><section class="compare-side ${i?'good':''}"><h2>${esc(side.title)}</h2>${side.lines.map(t=>`<p>${esc(t)}</p>`).join('')}</section></div>`).join('')}</div>`;
+      case 'flow':return `<div class="flow-grid">${s.nodes.map((n,i)=>`<div class="flow-node"><div ${reveal(Math.min(i,3))}><div class="node-number">${pad(i+1)}</div><h2>${esc(n.label)}</h2><p>${esc(n.detail)}</p></div></div>`).join('')}</div>`;
+      case 'diagram':return diagram(s.kind);
+      case 'document':return `<div class="paper"><div class="paper-title">${esc(s.docTitle)}</div><div class="paper-text">${rich(s.text)}</div></div>${caption(s)}${s.download?downloadButton():''}`;
+      case 'prompt':return `<div class="prompt-box"><button class="copy-button" data-action="copy">⧉ 复制完整任务</button><pre class="prompt-text">${esc(s.text)}</pre></div>`;
+      case 'quiz':return `<p class="quiz-question">${esc(s.question)}</p><div class="quiz-options">${s.options.map((o,i)=>`<button class="quiz-option" data-answer="${i}"><span class="option-letter">${'ABC'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div><div class="quiz-feedback" role="status"></div>`;
+      case 'tokens':return `<div class="token-caption">切分示意 / 不是真实 Tokenizer</div><div class="token-sentence">我想让 AI 帮我写总结。</div><div class="token-stream" id="token-stream"><span class="token-note">同样一段文字，切分结果可能因模型而异。</span></div><div class="inline-actions"><button class="action-button primary" data-action="tokens">显示切分示意</button></div><p class="token-note">输入、输出与用量有关；不同文字、符号和模型的切分并不相同。</p>`;
+      case 'meter':return `<div class="meter-headline">${rich(s.headline)}</div><div class="capacity-bar">${s.parts.map(([label,width])=>`<div class="capacity-part" style="width:${width}%">${esc(label)}</div>`).join('')}</div><div class="capacity-note">示意比例 · 不对应某款产品的真实窗口分配</div>`;
+      case 'table':return `<table class="data-table"><thead><tr>${s.columns.map(x=>`<th scope="col">${esc(x)}</th>`).join('')}</tr></thead><tbody>${s.rows.map(row=>`<tr>${row.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table>${caption(s)}${s.download?downloadButton():''}`;
+      case 'apps':return `<div class="apps-list">${s.apps.map((a,i)=>`<div class="app-item"><div class="app-glyph">${['D','豆','K','W'][i]}</div><div><h2>${esc(a[0])}</h2><p>${esc(a[1])}</p><a href="${esc(a[2])}" target="_blank" rel="noopener noreferrer">打开官方入口 ↗</a></div></div>`).join('')}</div>${caption(s)}`;
+      case 'formula':return `<div class="formula-items">${s.items.map((it,i)=>`<div class="formula-item" data-no="${pad(i+1)}"><div ${reveal(Math.min(i,3))}><h2>${esc(it[0])}</h2><p>${esc(it[1])}</p></div></div>`).join('')}</div>`;
+      case 'stats':return `<div class="stat-grid">${s.stats.map(([v,t])=>`<div class="stat-item"><div class="stat-number">${esc(v)}</div><div class="stat-label">${esc(t)}</div></div>`).join('')}</div><div class="stat-formula">${esc(s.formula)}</div>`;
+      case 'compression':return `<div class="compression-grid"><div class="compression-col"><h2>原始关键记录</h2><p>46名居民，[[不含6名志愿者]]。<br>预算800元，实际支出580元。<br>58件完成交换。<br>分类标识不足，两处排队较长。</p></div><div class="compression-col summary"><h2>给后续任务的摘要</h2><div id="compression-summary"><p style="color:#748da9">压缩之后，哪些信息最容易丢？</p></div></div></div><div class="inline-actions"><button class="action-button primary" data-action="compress">查看压缩摘要</button><button class="action-button" data-action="repair">保留关键清单</button></div>`;
+      case 'simulation':return `<div class="simulation-badge">固定脚本 · 离线教学模拟 · 无真实 AI 调用</div><div class="sim-track">${['材料','任务','初稿','修订','验收'].map((x,i)=>`<div class="sim-step" data-sim-step="${i}"><span>${i+1}</span>${x}</div>`).join('')}</div><div class="sim-stage"><div class="sim-index" id="sim-index">01</div><div><h2 class="sim-title" id="sim-title"></h2><div class="sim-text" id="sim-text"></div></div></div><div class="inline-actions"><button class="action-button primary" data-action="sim-next">推进到下一步 →</button><button class="action-button" data-action="sim-reset">重新演示</button></div>`;
+      case 'balance':return `<div class="balance-grid">${[['◎','质量','结果满足任务要求'],['↗','速度','多久能拿到可用结果'],['◇','成本','用量、次数与投入']].map((it,i)=>`<div class="balance-item"><div class="balance-symbol">${it[0]}</div><h2>${it[1]}</h2><p ${reveal(i?1:0)}>${it[2]}</p></div>`).join('')}</div>`;
+      case 'glossary':return `<div class="glossary-grid">${s.entries.map(([t,d])=>`<div class="glossary-entry"><strong>${esc(t)}</strong><p>${esc(d)}</p></div>`).join('')}</div>`;
+      case 'exercise':return `<div class="exercise-headline">${rich(s.headline)}</div><div class="exercise-tasks">${s.tasks.map((t,i)=>`<p ${reveal(i?1:0)}><span>${pad(i+1)}</span>${esc(t)}</p>`).join('')}</div>${downloadButton()}`;
+      case 'sources':return `<div class="sources-grid">${C.sources.map(src=>`<div class="source-link"><a href="${esc(src.url)}" target="_blank" rel="noopener noreferrer">${esc(src.name)} ↗</a><p>${esc(src.scope)}</p></div>`).join('')}</div>${caption(s)}`;
+      default:return '';
+    }
+  }
+  function caption(s){return s.caption?`<p class="caption">${esc(s.caption)}</p>`:'';}
+  function downloadButton(){return '<div class="inline-actions"><button class="action-button" data-action="materials">↓ 下载练习材料</button></div>';}
+  function render(doSweep=true) {
+    const s=C.slides[state.index], ch=C.chapters[s.ch-1];
+    $('stage').dataset.chapterColor=ch.color;
+    $('stage').dataset.layout=s.layout;
+    const isCover=s.layout==='cover',isClosing=s.layout==='closing',isChapter=s.layout==='chapter';
+    const hero=isCover||isClosing;
+    const header=`<div class="slide-heading"><div class="eyebrow">${isCover?'零基础 AI 入门':isChapter?`CHAPTER ${pad(s.ch)} / 12`: `${pad(s.ch)} / ${esc(ch.title)}`}</div><h1>${rich(hero?s.headline:s.title)}</h1>${s.subtitle?`<p class="slide-subtitle">${esc(s.subtitle)}</p>`:''}${isCover?`<div class="cover-meta">${esc(s.meta)}</div>`:''}</div>`;
+    $('slide-host').innerHTML=`<article class="slide ${s.layout} ${s.compact?'compact':''} ${s.download?'has-download':''}" data-layout="${s.layout}" aria-label="第${s.id}页：${esc(s.title)}">${isChapter?`<div class="chapter-number" aria-hidden="true">${pad(s.ch)}</div>`:''}${header}<div class="slide-content">${renderBody(s)}</div>${s.takeaway?`<div class="takeaway">${esc(s.takeaway)}</div>`:''}${isCover?'<div class="orb-label">HUMAN × INTELLIGENCE</div><div class="cover-line">LEARN · CREATE · VERIFY</div>':''}${isChapter?`<div class="chapter-track" aria-hidden="true">${C.chapters.map(x=>`<span class="${x.id===s.ch?'current':''}"></span>`).join('')}</div>`:''}</article>`;
+    if(s.layout==='compression') { const p=$('slide-host').querySelector('.compression-col p');p.innerHTML=rich('46名居民，[[不含6名志愿者]]。\n预算800元，实际支出580元。\n58件完成交换。\n分类标识不足，两处排队较长。'); }
+    $('chapter-no').textContent=pad(s.ch);$('chapter-title').textContent=ch.title;
+    $('page-number').textContent=pad(s.id);$('total-pages').textContent=C.slides.length;
+    $('stage-page').textContent=String(s.id).padStart(3,'0');
+    $('stage-footer-label').textContent=isCover?'AI FOUNDATIONS / 2026':'零基础 AI 入门';
+    $('course-progress-fill').style.width=`${s.id/C.slides.length*100}%`;
+    syncStep();
+    if(s.layout==='quiz'&&answers.has(s.id))showAnswer(answers.get(s.id),false);
+    if(s.layout==='simulation')updateSim(experiments.get(s.id)||0);
+    if(s.layout==='tokens'&&experiments.get(s.id))showTokens(false);
+    if(s.layout==='compression'&&experiments.get(s.id))showCompression(experiments.get(s.id));
+    if(doSweep&&!reduced){const v=document.querySelector('.transition-veil');v.classList.remove('sweep');void v.offsetWidth;v.classList.add('sweep');}
+    try{history.replaceState(null,'',`#/`+s.id);}catch{if(location.hash!==`#/${s.id}`)location.hash=`#/${s.id}`;}
+    drawFrame(performance.now());
+  }
+  function syncStep(){
+    document.querySelectorAll('#slide-host [data-step]').forEach(el=>el.classList.toggle('shown',Number(el.dataset.step)<=state.step));
+    const max=steps(C.slides[state.index]);
+    $('step-label').textContent=max&&state.step<max?`逐步展示 ${state.step+1}/${max+1}`:state.index===C.slides.length-1?'课程结束 · 可返回复习':'→ 下一页';
+    $('next-button').disabled=state.index===C.slides.length-1&&state.step>=max;
+    $('prev-button').disabled=state.index===0&&state.step===0;
+    $('next-button').setAttribute('aria-label',state.step<max?'显示下一步':'下一页');
+  }
+  function advance(direction){
+    const old=state.index;
+    state=direction>0?Core.next(state,steps(C.slides[state.index])):Core.prev(state,steps(C.slides[Math.max(0,state.index-1)]));
+    if(state.index!==old)render();else syncStep();
+  }
+  function jump(index){closeModal();state=Core.jump(state,index);render();}
+  function toast(message){clearTimeout(toastTimer);$('toast').textContent=message;$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,2500);}
+  function openModal(type,title,body){
+    if(!activeModal)restoreFocus=document.activeElement;
+    activeModal=type;$('modal-title').textContent=title;$('modal-body').innerHTML=body;$('modal').hidden=false;
+    requestAnimationFrame(()=>{const input=$('modal-body').querySelector('input,textarea');(input||$('modal-close')).focus();});
+  }
+  function closeModal(){if(!activeModal)return;activeModal='';$('modal').hidden=true;restoreFocus?.focus();}
+  function directory(){
+    if(activeModal==='directory'){closeModal();return;}
+    openModal('directory','课程目录',`<div class="directory-search"><input id="directory-query" type="search" aria-label="搜索页标题或术语" placeholder="搜索页标题或术语，例如：上下文、任务、验收"><select id="directory-chapter" aria-label="选择章节"><option value="">全部章节</option>${C.chapters.map(ch=>`<option value="${ch.id}">${pad(ch.id)} ${esc(ch.title)}</option>`).join('')}</select></div><div id="directory-results"></div>`);
+    const populate=()=>{
+      const query=$('directory-query').value.trim().toLowerCase(),selected=Number($('directory-chapter').value)||0;
+      const group=C.chapters.map(ch=>{
+        const found=C.slides.filter(s=>s.ch===ch.id&&(!selected||s.ch===selected)&&(!query||(s.title+' '+s.notes).toLowerCase().includes(query)));
+        return found.length?`<section class="chapter-group"><h3><span>${pad(ch.id)}</span>${esc(ch.title)}</h3>${found.map(s=>`<button class="page-link ${s.id===state.index+1?'current':''}" data-jump="${s.id-1}"><span class="num">${String(s.id).padStart(3,'0')}</span>${esc(s.title)}</button>`).join('')}</section>`:'';
+      }).join('');
+      $('directory-results').innerHTML=group?`<div class="directory-grid">${group}</div>`:'<p class="modal-intro">没有找到。试试“上下文”“工具”或清空搜索。</p>';
+    };
+    $('directory-query').addEventListener('input',populate);$('directory-chapter').addEventListener('change',populate);populate();
+  }
+  function notes(){
+    if(activeModal==='notes'){closeModal();return;}
+    const s=C.slides[state.index],srcs=(s.sources||[]).map(id=>C.sources.find(x=>x.id===id)).filter(Boolean);
+    openModal('notes',s.title,`<div class="notes-meta">第 ${s.id} / ${C.slides.length} 页 · ${esc(C.chapters[s.ch-1].title)}</div><div class="notes-goal">学习目标：${esc(s.goal)}</div><div class="notes-body">${esc(s.notes)}</div>${srcs.length?`<div class="notes-sources">来源核实：2026-10-13${srcs.map(src=>`<a href="${esc(src.url)}" target="_blank" rel="noopener noreferrer">${esc(src.name)} ↗</a>`).join('')}</div>`:''}<div class="notes-next">下一页：${esc(C.slides[state.index+1]?.title||'课程结束')}</div><p class="note-caution">备注在当前画面打开。接投影前可单独查看；这不是独立双屏演讲者窗口。</p>`);
+  }
+  function help(){
+    const keys=[['→ / 空格','下一步，或下一页'],['←','上一步，或上一页'],['PageDown / Up','下一步 / 上一步'],['Home / End','课程首页 / 最后一页'],['G','目录与搜索'],['N','当前页讲师备注'],['F','进入或退出全屏'],['M','减少或恢复动效'],['B','黑屏，暂停主画面'],['Esc','关闭浮层或退出黑屏'],['? / H','打开帮助']];
+    openModal('help','播放与键盘帮助',`<p class="modal-intro">有分步内容时，先逐步显示，再翻页。目录跳转会从当前页的第一步开始。<br>可双击打开单文件离线授课；点击页码可直接跳转。</p><div class="help-grid">${keys.map(([k,d])=>`<div class="help-row"><kbd>${esc(k)}</kbd><span>${esc(d)}</span></div>`).join('')}</div>`);
+  }
+  function materials(){openModal('materials','练习材料',`<p class="modal-intro">全部为虚构材料，可离线下载。课堂先发原始记录，再发补充事实；参考答案用于最后验收。</p><div class="materials-list">${C.materials.map((m,i)=>`<div class="material-row"><strong>${esc(m.name)}</strong><button data-download="${i}">下载 ↓</button></div>`).join('')}</div>`);}
+  function download(index){
+    const m=C.materials[index];if(!m)return;
+    const isCSV=m.name.endsWith('.csv');const blob=new Blob([isCSV?'\uFEFF':'',m.text],{type:isCSV?'text/csv;charset=utf-8':'text/plain;charset=utf-8'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=m.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);toast('已开始下载：'+m.name);
+  }
+  async function copy(){const s=C.slides[state.index];try{await navigator.clipboard.writeText(s.text);toast('完整任务已复制');}catch{openModal('copy','手动复制任务','<p class="modal-intro">浏览器未允许自动复制。文本已选中，按 Ctrl+C 复制。</p><textarea class="copy-fallback" aria-label="任务全文" id="copy-fallback" readonly></textarea>');$('copy-fallback').value=s.text;requestAnimationFrame(()=>{$('copy-fallback').focus();$('copy-fallback').select();});}}
+  function showAnswer(answer,save=true){
+    const s=C.slides[state.index];if(save)answers.set(s.id,answer);
+    document.querySelectorAll('.quiz-option').forEach((el,i)=>{el.classList.toggle('correct',i===s.correct);el.classList.toggle('wrong',i===answer&&i!==s.correct);el.setAttribute('aria-pressed',String(i===answer));});
+    document.querySelector('.quiz-feedback').textContent=(answer===s.correct?'✓ 正确。':'再看一下依据。')+s.explanation;
+  }
+  function showTokens(save=true){if(save)experiments.set(C.slides[state.index].id,true);$('token-stream').innerHTML=['我','想','让',' AI','帮','我','写','总结','。'].map((t,i)=>`<span class="token" style="animation-delay:${i*.06}s">${esc(t)}</span>`).join('');document.querySelector('[data-action=tokens]').textContent='再次查看示意';}
+  function showCompression(mode){
+    experiments.set(C.slides[state.index].id,mode);
+    $('compression-summary').innerHTML=mode==='repair'?`<p>${rich('居民46人（不含6名志愿者）；\n交换58件；预算800元 / 支出580元；\n问题：分类标识不足、排队。')}</p><div class="lost-warning" style="color:var(--mint)">关键数字、口径与限制一起保留。</div>`:`<p>活动已完成，参加46人，\n预算800元，继续写总结。</p><div class="lost-warning">丢失了：志愿者口径、实际支出、现场问题。</div>`;
+  }
+  const simData=[['先提供材料','活动记录中有58件物品、800元预算。\n参与人数与实际支出仍缺失。'],['把任务说明白','400字以内，给社区负责人阅读。\n只使用材料事实，未知写“待补充”。'],['核查错误初稿','初稿把人数写成80，把支出写成800元。\n先指出错误，不能直接发给负责人。'],['补事实，修订结果','46名居民（不含6名志愿者），实际支出580元。\n删除无依据的满意度与同比结论。'],['保存并验收','核对日期、人数口径、金额与改进措施。\n复制到文档并打开检查，才算完成任务。']];
+  function updateSim(index){
+    experiments.set(C.slides[state.index].id,index);
+    $('sim-index').textContent=pad(index+1);$('sim-title').textContent=simData[index][0];$('sim-text').textContent=simData[index][1];
+    document.querySelectorAll('.sim-step').forEach((el,i)=>el.classList.toggle('active',i<=index));
+    const btn=document.querySelector('[data-action=sim-next]');btn.disabled=index===4;btn.textContent=index===4?'已完成一次任务闭环':'推进到下一步 →';
+  }
+  function toggleMotion(){reduced=!reduced;try{localStorage.setItem('ai-deck-motion',reduced?'reduced':'full');}catch{}applyMotion();toast(reduced?'已减少动效':'已恢复动效');}
+  function applyMotion(){document.body.classList.toggle('reduced-motion',reduced);document.body.classList.toggle('motion-override',!reduced);$('motion-button').setAttribute('aria-pressed',String(reduced));$('motion-button').title=reduced?'恢复动效 (M)':'减少动效 (M)';cancelAnimationFrame(animationFrame);drawFrame(performance.now());if(!reduced)animationFrame=requestAnimationFrame(loop);}
+  async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{toast('此窗口未允许全屏，可在独立浏览器使用 F11');}}
+  function jumpDialog(){openModal('jump','跳转到指定页',`<p class="modal-intro">输入 1–${C.slides.length} 的页码。</p><form class="jump-form" id="jump-form"><input class="jump-input" id="jump-input" aria-label="页码" type="number" min="1" max="${C.slides.length}" required value="${state.index+1}"><button type="submit">跳转 →</button></form>`);$('jump-form').addEventListener('submit',e=>{e.preventDefault();const n=Number($('jump-input').value);if(Number.isInteger(n)&&n>=1&&n<=C.slides.length)jump(n-1);});}
+  $('next-button').addEventListener('click',()=>advance(1));$('prev-button').addEventListener('click',()=>advance(-1));
+  $('directory-button').addEventListener('click',directory);$('chapter-button').addEventListener('click',directory);
+  $('notes-button').addEventListener('click',notes);$('help-button').addEventListener('click',help);$('motion-button').addEventListener('click',toggleMotion);$('fullscreen-button').addEventListener('click',fullscreen);$('materials-button').addEventListener('click',materials);$('page-button').addEventListener('click',jumpDialog);$('modal-close').addEventListener('click',closeModal);
+  $('modal').addEventListener('click',e=>{if(e.target.dataset.close)closeModal();const j=e.target.closest('[data-jump]');if(j)jump(Number(j.dataset.jump));const d=e.target.closest('[data-download]');if(d)download(Number(d.dataset.download));});
+  $('slide-host').addEventListener('click',e=>{
+    const a=e.target.closest('[data-answer]');if(a){showAnswer(Number(a.dataset.answer));return;}
+    const b=e.target.closest('[data-action]');if(!b)return;
+    switch(b.dataset.action){case'copy':copy();break;case'materials':materials();break;case'directory':directory();break;case'tokens':showTokens();break;case'compress':showCompression('compress');break;case'repair':showCompression('repair');break;case'sim-next':updateSim(Math.min(4,(experiments.get(C.slides[state.index].id)||0)+1));break;case'sim-reset':updateSim(0);break;}
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.ctrlKey||e.metaKey||e.altKey)return;
+    if(!$('black-screen').hidden){if(['b','B','Escape'].includes(e.key))$('black-screen').hidden=true;return;}
+    if(activeModal){
+      if(e.key==='Escape'){e.preventDefault();closeModal();return;}
+      if(e.key==='Tab'){const all=[...$('modal').querySelectorAll('button,a[href],input,select,textarea')].filter(el=>!el.disabled&&el.offsetParent!==null);const first=all[0],last=all[all.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
+      if(e.target.matches('input,textarea,select'))return;
+      if(e.key.toLowerCase()==='n'&&activeModal==='notes')closeModal();if(e.key.toLowerCase()==='g'&&activeModal==='directory')closeModal();return;
+    }
+    if(e.target.matches('input,textarea,select')||e.target.isContentEditable)return;
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){if(e.key===' '&&e.target.matches('button,a'))return;e.preventDefault();advance(1);}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();advance(-1);}
+    else if(e.key==='Home'){e.preventDefault();jump(0);}else if(e.key==='End'){e.preventDefault();jump(C.slides.length-1);}
+    else switch(e.key.toLowerCase()){case'g':directory();break;case'n':notes();break;case'f':fullscreen();break;case'm':toggleMotion();break;case'b':$('black-screen').hidden=false;break;case'?':case'h':help();break;}
+  });
+  window.addEventListener('hashchange',()=>{const i=Core.parseHash(location.hash,C.slides.length);if(i!==state.index)jump(i);});
+  let touchStart=null;
+  $('viewport').addEventListener('touchstart',e=>{if(e.target.closest('button,a,pre'))return;touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
+  $('viewport').addEventListener('touchend',e=>{if(!touchStart)return;const dx=e.changedTouches[0].clientX-touchStart.x,dy=e.changedTouches[0].clientY-touchStart.y;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)advance(dx<0?1:-1);touchStart=null;},{passive:true});
+  function fit(){const v=$('viewport'),scale=Math.min((v.clientWidth-(innerWidth<800?20:56))/1600,(v.clientHeight-(innerWidth<800?20:36))/900);$('stage-shell').style.width=`${1600*scale}px`;$('stage-shell').style.height=`${900*scale}px`;$('stage').style.transform=`scale(${scale})`;}
+  window.addEventListener('resize',fit);document.addEventListener('fullscreenchange',fit);
+  const canvas=$('particles'),ctx=canvas.getContext('2d');
+  const points=Array.from({length:440},(_,i)=>{const y=1-2*(i+.5)/440,r=Math.sqrt(1-y*y),a=i*2.399963;return{x:Math.cos(a)*r,y,z:Math.sin(a)*r};});
+  const stars=Array.from({length:75},(_,i)=>({x:(Math.sin(i*123.21)*.5+.5)*1600,y:(Math.cos(i*84.31)*.5+.5)*900,r:i%5===0?1.4:.7}));
+  function drawFrame(time){
+    if(!ctx)return;ctx.clearRect(0,0,1600,900);const layout=C.slides[state.index].layout,hero=['cover','chapter','closing'].includes(layout), t=reduced?.15:time*.00008;
+    ctx.fillStyle='#b6dbf6';stars.forEach((p,i)=>{ctx.globalAlpha=hero?.12+.12*Math.sin(t*8+i):.045;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();});ctx.globalAlpha=1;if(!hero)return;
+    const center={x:layout==='cover'?1230:layout==='closing'?1200:1230,y:layout==='cover'?465:470},radius=layout==='chapter'?355:320;
+    const glow=ctx.createRadialGradient(center.x,center.y,40,center.x,center.y,radius*1.5);glow.addColorStop(0,'rgba(80,160,255,.10)');glow.addColorStop(.5,'rgba(90,140,255,.065)');glow.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=glow;ctx.fillRect(700,50,900,850);
+    const project=(x,y,z)=>{const a=x*Math.cos(t)+z*Math.sin(t),depth=-x*Math.sin(t)+z*Math.cos(t);return{x:center.x+a*radius,y:center.y+(y*Math.cos(.18)-depth*Math.sin(.18))*radius,z:depth};};
+    for(let lat=-3;lat<=3;lat++){const phi=lat*Math.PI/9,r=Math.cos(phi),y=Math.sin(phi);let prev=null;for(let k=0;k<=96;k++){const a=k/96*Math.PI*2,p=project(Math.cos(a)*r,y,Math.sin(a)*r);if(prev){ctx.strokeStyle=`rgba(118,223,250,${p.z>0?.20:.04})`;ctx.beginPath();ctx.moveTo(prev.x,prev.y);ctx.lineTo(p.x,p.y);ctx.stroke();}prev=p;}}
+    for(let meridian=0;meridian<14;meridian++){const a=meridian/14*Math.PI*2;let prev=null;for(let k=0;k<=48;k++){const phi=-Math.PI/2+k/48*Math.PI,r=Math.cos(phi),p=project(Math.cos(a)*r,Math.sin(phi),Math.sin(a)*r);if(prev){ctx.strokeStyle=`rgba(168,168,255,${p.z>0?.18:.035})`;ctx.beginPath();ctx.moveTo(prev.x,prev.y);ctx.lineTo(p.x,p.y);ctx.stroke();}prev=p;}}
+    ctx.save();ctx.translate(center.x,center.y);ctx.rotate(-.35);ctx.strokeStyle='rgba(131,220,247,.18)';ctx.lineWidth=1;ctx.beginPath();ctx.ellipse(0,0,radius*1.27,radius*.41,0,0,Math.PI*2);ctx.stroke();ctx.strokeStyle='rgba(177,164,255,.14)';ctx.beginPath();ctx.ellipse(0,0,radius*1.12,radius*.37,1.1,0,Math.PI*2);ctx.stroke();ctx.restore();
+    const projected=points.map(p=>{const x=p.x*Math.cos(t)+p.z*Math.sin(t),z=-p.x*Math.sin(t)+p.z*Math.cos(t),y=p.y;return{x:center.x+x*radius,y:center.y+(y*Math.cos(.18)-z*Math.sin(.18))*radius,z};});
+    for(let i=0;i<projected.length;i++){const p=projected[i];if(p.z>-.2&&i%3===0){for(let j=i+1;j<Math.min(i+14,projected.length);j++){const q=projected[j],d=Math.hypot(p.x-q.x,p.y-q.y);if(q.z>0&&d<53){ctx.strokeStyle=`rgba(113,214,247,${.13*(1-d/53)})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}}}ctx.fillStyle=p.z>.3?'#97ecfa':'#8192dc';ctx.globalAlpha=(p.z+1)*.27+.07;ctx.beginPath();ctx.arc(p.x,p.y,p.z>.5?1.9:1.1,0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;
+    ctx.strokeStyle='rgba(157,216,247,.1)';ctx.setLineDash([2,9]);ctx.beginPath();ctx.arc(center.x,center.y,radius,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+    const a=t*2,px=center.x+Math.cos(a)*radius*1.27,py=center.y+Math.sin(a)*radius*.41;ctx.shadowBlur=18;ctx.shadowColor='#8aedff';ctx.fillStyle='#c6fbff';ctx.beginPath();ctx.arc(px,py,3,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  }
+  function loop(time){if(document.visibilityState==='visible')drawFrame(time);animationFrame=requestAnimationFrame(loop);}
+  render(false);fit();applyMotion();
+})();
+
+</script>
+</body>
+</html>
